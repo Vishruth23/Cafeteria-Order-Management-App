@@ -40,13 +40,15 @@
     </div> 
 
     
-</body>
+
 
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
     import { getDatabase } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+    
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -66,7 +68,67 @@
     const database = getDatabase(app);
     const auth = getAuth();
 
-  </script>
+    let signupbtn = document.getElementById('signup-btn');
+    let name_user = document.getElementById('name-text');
+    let email_user = document.getElementById('email-address-text');
+    let password_user = document.getElementById('password-text');
 
+
+    signupbtn.addEventListener('click', function(){
+
+        if(validation()){
+
+            createUserWithEmailAndPassword(auth, email_user.value, password_user.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    alert("Account created");
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                    // ..
+                }
+            );
+
+        }
+    })
+
+
+  
+
+  
+    function validation(){
+    let nameregex = /^[A-Za-z]+$/;
+    let emailregex = /^[A-Za-z]+\.+[A-Za-z]+@iiitb\.ac\.in$/;
+
+
+    function isEmptyOrSpaces(str){
+        return str===null || str.match(/^ *$/) !== null;
+    }
+
+    if(isEmptyOrSpaces(name_user.value) || isEmptyOrSpaces(email_user.value)){
+        alert("No field can remain empty!");
+        return false;
+    }
+
+    if(!nameregex.test(name_user.value)){
+        alert("Name should contain only alphabets! and in the specified format x.y@iiitb.ac.in")
+        return false;
+    }
+    if(!emailregex.test(email_user.value)){
+        alert("Email Invalid! Use only iiitb.ac.in email address!");
+        return false;
+    }
+
+    return true;
+    }
+
+</script>
+
+
+</body>
 
 </html>
