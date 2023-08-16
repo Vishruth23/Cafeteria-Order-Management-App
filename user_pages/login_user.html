@@ -72,10 +72,13 @@
                     const user = userCredential.user;
                     const dt = new Date();
                     alert('Login Successful');
-                    window.location.assign('homepage_user.html');
-                    update(ref(database, "/users" + user.uid),{
+                    console.log(user.uid);
+                    
+                    update(ref(database, `users/` + user.uid),{
                         last_login: dt
                     })
+
+                    window.location.assign('homepage_user.html');
                     // ...
                 })
                 .catch((error) => {
@@ -86,7 +89,7 @@
 
 
         })
-        
+
 
         </script>
 
