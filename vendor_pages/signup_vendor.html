@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup_vendor.css">
+    <title>Sign-up</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="wrapper title">Sign Up</div>
+        <form action="#">
+
+            <div class = "field">
+                <label>Username</label>
+                <input type="text" class = "form-control" id = "name-text" placeholder="Username">
+            </div>
+
+            <div class = "field">
+                <label>Password</label>
+                <input type="password" class = "form-control" id="password-text" placeholder="Password">
+            </div>
+
+            <div class="field">
+                <label>Location</label>
+                <div class="dropdown">
+                  <select id="location-cc">
+                    <option value="ramanujan_1st_floor">Ramanujan 1st Floor</option>
+                    <option value="aryabhatta_ground_floor">Aryabhatta Ground Floor</option>
+                  </select>
+                </div>
+            </div>
+
+            <div class = "field">
+                <input type = "submit" value = "Sign Up" id = "signup-btn">
+            </div>
+
+            <div class="login-link">Already registered? <a href = "login_vendor.html">Login here</a></div>
+
+        </form>
+    </div> 
+
+    
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
+      authDomain: "zense-offl.firebaseapp.com",
+      databaseURL: "https://zense-offl-default-rtdb.firebaseio.com",
+      projectId: "zense-offl",
+      storageBucket: "zense-offl.appspot.com",
+      messagingSenderId: "297061345791",
+      appId: "1:297061345791:web:4d53117c64b367bdcbdfca"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    let signupbtn = document.getElementById('signup-btn');
+    let name_vendor = document.getElementById('name-text');
+    //let email_user = document.getElementById('email-address-text');
+    let password_vendor = document.getElementById('password-text');
+    let location_vendor = document.getElementById('location-cc');
+
+
+    signupbtn.addEventListener('click', function(){
+
+        if(validation()){
+
+            createUserWithEmailAndPassword(auth, name_vendor.value, password_vendor.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    set(ref(database, "vendors/"+location_vendor.value),{
+                        uid: user.uid,
+                        username: name_user.value,
+                    })
+                    alert("Account registered");
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                    // ..
+                }
+            );
+
+        }
+    })
+
+
+  
+
+  
+    function validation(){
+    let nameregex = /^[A-Za-z0-9]+$/;
+    //let emailregex = /^[A-Za-z]+\.+[A-Za-z]+@iiitb\.ac\.in$/;
+
+
+    function isEmptyOrSpaces(str){
+        return str===null || str.match(/^ *$/) !== null;
+    }
+
+    if(isEmptyOrSpaces(name_vendor.value) || isEmptyOrSpaces(password_vendor.value)){
+        alert("No field can remain empty!");
+        return false;
+    }
+
+    return true;
+    }
+
+</script>
+
+
+</body>
+
+</html>

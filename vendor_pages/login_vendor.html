@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup_vendor.css">
+    <title>Login Page</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="wrapper title">Log In</div>
+        <form action="#">
+
+            <div class = "field">
+                <label>Email Address</label>
+                <input type="text" class = "form-control" id = "email-address-text" placeholder="xyz@iiitb.ac.in">
+            </div>
+
+            <div class = "field">
+                <label>Password</label>
+                <input type="password" class = "form-control" id="password-text" placeholder="Password">
+            </div>
+
+            <div class = "field">
+                <input type = "submit" value = "Sign In" id = "login-btn">
+            </div>
+
+        </form>
+    </div> 
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+        // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+        
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
+        authDomain: "zense-offl.firebaseapp.com",
+        databaseURL: "https://zense-offl-default-rtdb.firebaseio.com",
+        projectId: "zense-offl",
+        storageBucket: "zense-offl.appspot.com",
+        messagingSenderId: "297061345791",
+        appId: "1:297061345791:web:4d53117c64b367bdcbdfca"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        let loginbtn = document.getElementById('login-btn');
+        let email_vendor = document.getElementById('email-address-text');
+        let password_vendor = document.getElementById('password-text');
+        
+
+        loginbtn.addEventListener('click', function(){
+
+
+            signInWithEmailAndPassword(auth, email_vendor.value, password_vendor.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+
+                    //console.log(user.emailVerified);
+                    
+                    alert('Login Successful');
+                    window.location.assign('./../vendor_pages/homepage_vendor.html');
+
+                    
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage)
+                });
+
+
+        })
+
+
+        </script>
+
+    
+</body>
+
+
+</html>
