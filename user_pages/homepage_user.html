@@ -7,7 +7,15 @@
     <title>Home Page</title>
 </head>
 <body>
-    <h1>Welcome to home page</h1>
+    <h1 id = "h1id">Welcome to home page</h1>
+
+    <script>
+        const myObjectString2 = localStorage.getItem('objectGreeting');
+        const myObject2 = JSON.parse(myObjectString2);
+        console.log(myObject2.customername);
+        document.getElementById("h1id").textContent = myObject2.customername;
+
+    </script>
     
 </body>
 </html>
