@@ -35,7 +35,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { getDatabase, set, ref, update, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
         // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
         
@@ -71,10 +71,26 @@
                     // Signed in 
                     const user = userCredential.user;
 
+
+                    //user.email.includes("aryabhatta")
+                    
+                    get(ref(database, user.email.includes("aryabhatta") ? `vendors/aryabhatta` : `vendors/ramanujan`))
+                            .then((snapshot) => {
+                                const vendorDetails = snapshot.val();
+                                //console.log(vendorDetails);
+                                const vendorName = vendorDetails.name;
+                                const inv = vendorDetails.inventory;
+                                //console.log(inv);
+                                const myObject = {vendorname: `${vendorName}`, inventory: inv}
+                                const myObjectString = JSON.stringify(myObject);
+                                localStorage.setItem('objectdata', myObjectString);
+                                window.location.assign('homepage_vendor.html');
+                       })
+
                     //console.log(user.emailVerified);
                     
                     alert('Login Successful');
-                    window.location.assign('./../vendor_pages/homepage_vendor.html');
+                    //window.location.assign('./../vendor_pages/homepage_vendor.html');
 
                     
                     // ...
