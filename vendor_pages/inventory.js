@@ -3,6 +3,30 @@ const myObjectString2 = localStorage.getItem('objectdata');
 const myObject2 = JSON.parse(myObjectString2);
 //console.log(myObject2);
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+import { getDatabase, set, ref, update, get, child, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+// import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
+authDomain: "zense-offl.firebaseapp.com",
+databaseURL: "https://zense-offl-default-rtdb.firebaseio.com",
+projectId: "zense-offl",
+storageBucket: "zense-offl.appspot.com",
+messagingSenderId: "297061345791",
+appId: "1:297061345791:web:4d53117c64b367bdcbdfca"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const auth = getAuth();
+
 
 const addItemButton = document.getElementById('add-item-btn');
 const itemNameInput = document.getElementById('item-name');
@@ -44,47 +68,45 @@ function createInventoryItem(name, category, quantity, price) {
     deleteItemLink.className = 'delete-item';
     deleteItemLink.textContent = 'Delete';
     deleteItemLink.addEventListener('click', () => {
-        inventoryList.removeChild(inventoryItem);
+        const confirmDelete = confirm('Are you sure you want to delete this item?');
+        if (confirmDelete) {
+            inventoryList.removeChild(inventoryItem);
+    
+            // Remove from Firebase database
+            const inventoryRef = ref(database, `vendors/${myObject2.vendorname}/inventory/${category}`);
+            const itemRef = child(inventoryRef, name);
+    
+            // Use the remove function to delete the item from the database
+            remove(itemRef);
+        }
     });
+
+    // const deleteItemLink = document.createElement('span');
+    // deleteItemLink.className = 'delete-item';
+    // deleteItemLink.textContent = 'Delete';
+    // deleteItemLink.addEventListener('click', () => {
+    //     inventoryList.removeChild(inventoryItem);
+    // });
 
     itemDetails.appendChild(itemNameHeading);
     itemDetails.appendChild(itemCategoryText);
     itemDetails.appendChild(itemQuantityText);
     itemDetails.appendChild(itemPriceText);  
-    itemDetails.appendChild(editQuantityLink);
+    //itemDetails.appendChild(editQuantityLink);
     itemDetails.appendChild(deleteItemLink);
 
     inventoryItem.appendChild(itemDetails);
 
+
     return inventoryItem;
+
+    
 }
 
 
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-import { getDatabase, set, ref, update, get, child, push } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-// import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
-authDomain: "zense-offl.firebaseapp.com",
-databaseURL: "https://zense-offl-default-rtdb.firebaseio.com",
-projectId: "zense-offl",
-storageBucket: "zense-offl.appspot.com",
-messagingSenderId: "297061345791",
-appId: "1:297061345791:web:4d53117c64b367bdcbdfca"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const auth = getAuth();
 
 //console.log(myObject2)
 
@@ -128,3 +150,23 @@ addItemButton.addEventListener('click', () => {
 
     //inventoryList.appendChild(createInventoryItem(itemName, itemCategory, itemQuantity, itemPrice));
 });
+
+
+
+
+onValue(ref(database, `vendors/${myObject2.vendorname}/inventory`), function(snapshot){
+    if(snapshot.exists()){
+        inventoryList.innerHTML="";
+        let item = Object.entries(snapshot.val())
+        for(let i=0; i<item.length; i++){
+            //console.log(item[i][0], Object.entries(item[i][1]));
+            const categoryHeading = document.createElement('h2');
+            categoryHeading.textContent = item[i][0].charAt(0).toUpperCase() + item[i][0].slice(1)+"s"; // Capitalize the category name
+            inventoryList.appendChild(categoryHeading);
+            for(let j=0; j<Object.entries(item[i][1]).length; j++){
+                //console.log(item[i][0], Object.entries(item[i][1])[j]);
+                inventoryList.appendChild(createInventoryItem(Object.entries(item[i][1])[j][0], item[i][0], Object.entries(item[i][1])[j][1].quantity, Object.entries(item[i][1])[j][1].price));
+            }
+        }
+    }
+})
