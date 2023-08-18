@@ -110,17 +110,17 @@ function createInventoryItem(name, category, quantity, price) {
 
 //console.log(myObject2)
 
-get(ref(database, `vendors/${myObject2.vendorname}/inventory/snacks`))
-    .then((snapshot) => {
-        const productdetails = snapshot.val();
-        for (const p1 in productdetails) {
-            const productName = p1;           // Get the snack name ("lays")
-            const productItems = productdetails[p1];
-            //console.log("name:",p1,"price:",productItems[0], "qty:",productItems[1]);
-        }
-        //const userName = userDetails.name;
-        //console.log(snackdetails);
-})
+// get(ref(database, `vendors/${myObject2.vendorname}/inventory/snacks`))
+//     .then((snapshot) => {
+//         const productdetails = snapshot.val();
+//         for (const p1 in productdetails) {
+//             const productName = p1;           // Get the snack name ("lays")
+//             const productItems = productdetails[p1];
+//             //console.log("name:",p1,"price:",productItems[0], "qty:",productItems[1]);
+//         }
+//         //const userName = userDetails.name;
+//         //console.log(snackdetails);
+// })
 
 
 
