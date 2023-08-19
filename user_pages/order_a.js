@@ -38,6 +38,7 @@ function createInventoryItem(name, category, quantity, price) {
     const addtocartbtn = document.createElement('button');
     addtocartbtn.className = 'btn btn-primary';
     addtocartbtn.textContent = 'Add to Cart';
+    addtocartbtn.id = `atc-${name}`
 
     inventoryItem.appendChild(itemNameHeading);
     inventoryItem.appendChild(itemPriceText);
@@ -63,8 +64,24 @@ onValue(ref(database, `vendors/aryabhatta/inventory`), function(snapshot){
             menuContainer.appendChild(categoryHeading);
             for(let j=0; j<Object.entries(item[i][1]).length; j++){
                 //console.log(item[i][0], Object.entries(item[i][1])[j]);
-                menuContainer.appendChild(createInventoryItem(Object.entries(item[i][1])[j][0], item[i][0], Object.entries(item[i][1])[j][1].quantity, Object.entries(item[i][1])[j][1].price));
+
+
+                menuContainer.appendChild(createInventoryItem(Object.entries(
+                    item[i][1])[j][0], 
+                    item[i][0], 
+                    Object.entries(item[i][1])[j][1].quantity, 
+                    Object.entries(item[i][1])[j][1].price
+                ));
+
+                const addToCart = document.getElementById(`atc-${Object.entries(item[i][1])[j][0]}`);
+                addToCart.addEventListener("click", function addToCartClicked(){
+                    console.log(`Add to cart clicked - name : ${Object.entries(item[i][1])[j][0]}`);
+                    addToCart.textContent = 'Added to Cart';
+                    addToCart.removeEventListener('click', addToCartClicked);
+                })
             }
         }
     }
 })
+
+
