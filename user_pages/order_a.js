@@ -55,7 +55,8 @@ function createInventoryItem(name, category, quantity, price) {
     const addtocartbtn = document.createElement('button');
     addtocartbtn.className = 'btn btn-primary';
     addtocartbtn.textContent = 'Add to Cart';
-    addtocartbtn.id = `atc-${name}`
+    addtocartbtn.id = `atc-${name.replace(/\s+/g, '')}`
+    //console.log(addtocartbtn.id);
 
 /////////
     const quantityControls = document.createElement('div');
@@ -72,6 +73,7 @@ function createInventoryItem(name, category, quantity, price) {
     const plusBtn = document.createElement('button');
     plusBtn.textContent = '+';
     plusBtn.className = 'quantity-btn';
+    plusBtn.id = `qtybtn-${name.replace(/\s+/g, '')}`;
 
     const removeBtn = document.createElement('button'); // Create the Remove from Cart button
     removeBtn.textContent = 'Remove from Cart';
@@ -88,6 +90,7 @@ function createInventoryItem(name, category, quantity, price) {
 
     inventoryItem.appendChild(itemNameHeading);
     inventoryItem.appendChild(itemPriceText);
+    //console.log(`Creating button for item: ${name}`);
     inventoryItem.appendChild(addtocartbtn);
     inventoryItem.appendChild(quantityControls);
     
@@ -95,8 +98,9 @@ function createInventoryItem(name, category, quantity, price) {
     menuContainer.appendChild(inventoryItem); // Append to the menu container
 
 
+
     addtocartbtn.addEventListener('click', function addToCartClicked() {
-        console.log(`Add to cart clicked - name: ${name}`);
+        //console.log(`Add to cart clicked - name: ${name}`);
         addtocartbtn.textContent = 'Added to Cart';
         total_price = Number(price);
         addtocartbtn.removeEventListener('click', addToCartClicked);
@@ -108,15 +112,7 @@ function createInventoryItem(name, category, quantity, price) {
         let quantityValue = 1;
         quantityDisplay.textContent = quantityValue;
 
-        minusBtn.addEventListener('click', function () {
-            if (quantityValue > 1) {
-                quantityValue--;
-                quantityDisplay.textContent = quantityValue;
-                total_price = total_price-Number(price);
-                updateUserCart("active", name, quantityValue, total_price);
-                console.log(name,quantityValue);
-            }
-        });
+        
 
         plusBtn.addEventListener('click', async function () {
             const inventoryRef = ref(database, `vendors/aryabhatta/inventory/${category}/${name}/quantity`);
@@ -127,9 +123,9 @@ function createInventoryItem(name, category, quantity, price) {
             if (quantityValue < availableQuantity) {
                 console.log(category);
                 quantityValue++;
-                total_price = total_price+Number(price);
+                total_price = Number(price)*quantityValue;
                 quantityDisplay.textContent = quantityValue;
-                updateUserCart("active", name, quantityValue, total_price);
+                updateUserCart("active", name, category, quantityValue, total_price);
                 console.log(name, quantityValue);
             } else {
                 console.log("Reached maximum available quantity.");
@@ -137,15 +133,25 @@ function createInventoryItem(name, category, quantity, price) {
         }
         else{
                 quantityValue++;
-                total_price = total_price+Number(price);
+                total_price = Number(price)*quantityValue;
                 quantityDisplay.textContent = quantityValue;
                 console.log(name, quantityValue);
-                updateUserCart("active", name, quantityValue, total_price);
+                updateUserCart("active", name, category, quantityValue, total_price);
         }
         });
 
+        minusBtn.addEventListener('click', function () {
+            if (quantityValue > 1) {
+                quantityValue--;
+                quantityDisplay.textContent = quantityValue;
+                total_price = Number(price)*quantityValue;
+                updateUserCart("active", name, category, quantityValue, total_price);
+                console.log(name,quantityValue);
+            }
+        });
 
-        updateUserCart("active", name, quantityValue, total_price);
+
+        updateUserCart("active", name, category, quantityValue, total_price);
     });
 
     
@@ -185,16 +191,66 @@ onValue(ref(database, `vendors/aryabhatta/inventory`), function(snapshot){
     }
 })
 
-function updateUserCart(cartStatus, itemName, quantity, totalPrice) {
+function updateUserCart(cartStatus, itemName, category ,quantity, totalPrice) {
     const cartRef = ref(database, `cart/${cartStatus}/${userName}`);
 
     // Update the cart with the item details
     update(cartRef, {
         [itemName]: {
+            category: category,
             quantity: quantity,
             totalPrice: totalPrice
         }
     })
 }
+
+
+
+// document.addEventListener('DOMContentLoaded', () => {
+// const storedData = localStorage.getItem('dataKey');
+// const cartData = JSON.parse(storedData);
+
+// //console.log(cartData);
+
+// for (const itemId in cartData) {
+//     const cartItem = cartData[itemId];
+//     let btnitem = document.getElementById(`atc-${itemId.replace(/\s+/g, '')}`);
+//     //console.log(itemId);
+//     btnitem.click();
+//     let qtybtnitem = document.getElementById(`qtybtn-${itemId.replace(/\s+/g, '')}`);
+//     for(let k=1; k<=cartItem.quantity; k++){
+//         qtybtnitem.click();
+//     }
+// }
+// });
+
+setTimeout(() => {
+    
+    //console.log(cartData);
+    const cartRef = ref(database, `cart/active/${userName}`);
+    get(cartRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            
+            const cartData = snapshot.val();
+            //console.log("cartdata",cartData)
+
+            for (const itemId in cartData) {
+                const cartItem = cartData[itemId];
+                const modifiedItemId = itemId.replace(/\s+/g, '');
+                console.log(modifiedItemId, cartItem.quantity);
+                let btnitem = document.getElementById(`atc-${modifiedItemId}`);
+                btnitem.click();
+                let qtybtnitem = document.getElementById(`qtybtn-${modifiedItemId}`);
+                for (let k = 1; k <= cartItem.quantity-1; k++) {
+                    qtybtnitem.click();
+                    
+                }
+            }
+}})
+        
+
+}, 3000);
+
+
 
 

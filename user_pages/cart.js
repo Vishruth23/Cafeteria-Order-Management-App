@@ -30,6 +30,9 @@ function fetchCartData(userName, cartStatus) {
         if (snapshot.exists()) {
             const cartData = snapshot.val();
 
+            localStorage.setItem('dataKey', JSON.stringify(cartData));
+            console.log("cartData",cartData);
+
             // Loop through the cart items and display them
             for (const itemId in cartData) {
                 const cartItem = cartData[itemId];
@@ -48,14 +51,12 @@ function fetchCartData(userName, cartStatus) {
                 removeBtn.classList.add('remove-btn');
 
                 removeBtn.addEventListener('click', () => {
-                    // Implement logic to remove item from cart (update database)
-                    // Then remove the cart item element from the DOM
-                    // ...
-
-                    // After removing, you might want to re-fetch the updated cart data
-                    fetchCartData(userName, cartStatus);
+                    
+                    //fetchCartData(userName, cartStatus);
                     removeItemFromCart(userName, cartStatus, itemId);
                 });
+
+
 
 
                 cartItemElement.appendChild(itemName);
@@ -63,9 +64,11 @@ function fetchCartData(userName, cartStatus) {
                 cartItemElement.appendChild(removeBtn);
 
                 cartItemsContainer.appendChild(cartItemElement);
+                
             }
         } else {
             cartItemsContainer.textContent = 'No items in the cart.';
+            localStorage.setItem('dataKey', null);
         }
     });
 }
@@ -87,20 +90,10 @@ function removeItemFromCart(userName, cartStatus, itemId) {
     }).then(() => {
         console.log('Item removed from the cart in the database.');
 
-        // After removing from the database, remove the cart item element from the DOM
-        const cartItemElement = document.getElementById(itemId);
-        if (cartItemElement) {
-            cartItemElement.remove();
-        }
-
         // Update localStorage to reflect the latest cart data
-        const storedCartData = JSON.parse(localStorage.getItem('cartData'));
-        delete storedCartData[itemId];
-        localStorage.setItem('cartData', JSON.stringify(storedCartData));
     }).catch((error) => {
         console.error('Error removing item from the cart:', error);
     });
-    localStorage.setItem('cartData', JSON.stringify(cartData));
 }
 
 
@@ -116,3 +109,20 @@ auth.onAuthStateChanged((user) => {
         orderNowLink.style.display = 'none';
     }
 });
+
+const logoutButton = document.getElementById('logout-btn');
+        logoutButton.addEventListener('click', () => {
+            //const auth = getAuth();
+            signOut(auth).then(() => {
+                alert('Logged out');
+                window.location.assign('login_user.html');
+            // Sign-out successful.
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage)
+            // An error happened.
+            });
+            // Add logout functionality here
+            
+        });
