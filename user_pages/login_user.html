@@ -87,7 +87,7 @@
                             .then((snapshot) => {
                                 const userDetails = snapshot.val();
                                 const userName = userDetails.name;
-                                const myObject = {customername: `${userName}`}
+                                const myObject = {customername: `${userName}`, customer_email:`${userDetails.email}`, userid:`${user.uid}`};
                                 const myObjectString = JSON.stringify(myObject);
                                 localStorage.setItem('objectGreeting', myObjectString);
                                 window.location.assign('homepage_user.html');

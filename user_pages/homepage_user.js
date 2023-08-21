@@ -53,7 +53,7 @@ aryabhattaButton.addEventListener('click', () => {
             //console.log(vendorName, inv);
             const myObject = {vendorname: `${vendorName}`, inventory: inv}
             const myObjectString = JSON.stringify(myObject);
-            localStorage.setItem('inv-data-aryabhatta', myObjectString);
+            localStorage.setItem('inv-data', myObjectString);
             window.location.assign('order_a.html');
     })
     
@@ -70,7 +70,7 @@ ramanujanButton.addEventListener('click', () => {
             //console.log(vendorName, inv);
             const myObject = {vendorname: `${vendorName}`, inventory: inv}
             const myObjectString = JSON.stringify(myObject);
-            localStorage.setItem('inv-data-ramanujan', myObjectString);
+            localStorage.setItem('inv-data', myObjectString);
             window.location.assign('order_r.html');
     })
     

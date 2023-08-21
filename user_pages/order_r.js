@@ -25,13 +25,13 @@ const myObject = JSON.parse(myObjectString);
 // Extract the user's name from the object
 const userName = myObject.customername;
 const emailId = myObject.customer_email;
-const userid=myObject.userid;
-console.log(myObject.userid);
+const userid = myObject.userid;
+console.log(userName);
 
 let total_price = 0;
 
 function atc1(cartStatus){
-const cartRef = ref(database, `cart/aryabhatta/${cartStatus}/${userid}`);
+const cartRef = ref(database, `cart/ramanujan/${cartStatus}/${userid}`);
 update(cartRef, {
 })
 }
@@ -47,6 +47,8 @@ console.log(vendorName);
 const menuContainer = document.querySelector('.menu');
 
 function createInventoryItem(name, category, quantity, price) {
+
+    
      // Select the menu container
 
     const inventoryItem = document.createElement('div');
@@ -124,6 +126,8 @@ function createInventoryItem(name, category, quantity, price) {
 
 
 
+
+
     addtocartbtn.addEventListener('click', function addToCartClicked() {
         //console.log(`Add to cart clicked - name: ${name}`);
         addtocartbtn.textContent = 'Added to Cart';
@@ -137,10 +141,12 @@ function createInventoryItem(name, category, quantity, price) {
         let quantityValue = 1;
         quantityDisplay.textContent = quantityValue;
 
+
+
         
 
         plusBtn.addEventListener('click', async function () {
-            const inventoryRef = ref(database, `vendors/aryabhatta/inventory/${category}/${name}/quantity`);
+            const inventoryRef = ref(database, `vendors/ramanujan/inventory/${category}/${name}/quantity`);
             const inventorySnapshot = await get(inventoryRef);
             const availableQuantity = inventorySnapshot.val();
         
@@ -176,6 +182,8 @@ function createInventoryItem(name, category, quantity, price) {
         });
 
 
+
+
         updateUserCart("active", name, category, quantityValue, total_price);
     });
 
@@ -185,7 +193,7 @@ function createInventoryItem(name, category, quantity, price) {
 
 
 
-onValue(ref(database, `vendors/aryabhatta/inventory`), function(snapshot){
+onValue(ref(database, `vendors/ramanujan/inventory`), function(snapshot){
     if(snapshot.exists()){
         menuContainer.innerHTML="";
         let item = Object.entries(snapshot.val())
@@ -217,7 +225,7 @@ onValue(ref(database, `vendors/aryabhatta/inventory`), function(snapshot){
 })
 
 function updateUserCart(cartStatus, itemName, category ,quantity, totalPrice) {
-    const cartRef = ref(database, `cart/aryabhatta/${cartStatus}/${userid}`);
+    const cartRef = ref(database, `cart/ramanujan/${cartStatus}/${userid}`);
 
     // Update the cart with the item details
     update(cartRef, {
@@ -251,7 +259,7 @@ const logoutButton = document.getElementById('logout-btn');
 setTimeout(() => {
     
     //console.log(cartData);
-    const cartRef = ref(database, `cart/aryabhatta/active/${userid}`);
+    const cartRef = ref(database, `cart/ramanujan/active/${userid}`);
     get(cartRef).then((snapshot) => {
         if (snapshot.exists()) {
             

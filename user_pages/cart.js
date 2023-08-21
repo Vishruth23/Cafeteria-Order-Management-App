@@ -17,18 +17,35 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 
+const objstring = localStorage.getItem('inv-data');
+const objdata = JSON.parse(objstring);
+const vendorName = objdata.vendorname;
+console.log(vendorName);
+
+const storedData = localStorage.getItem('objectGreeting');
+const myObject = JSON.parse(storedData);
+const emailId = myObject.customer_email;
+let userid = myObject.userid;
+//console.log(userid);
+
+const ordernowlink = document.getElementById('order-now-link');
+ordernowlink.addEventListener('click', function(){
+    window.location.assign(`order_${vendorName[0]}.html`);
+})
 
 const cartItemsContainer = document.getElementById('cart-items');
 
 // Function to fetch cart data from the Firebase Realtime Database
-function fetchCartData(userName, cartStatus) {
-    const cartRef = ref(database, `cart/${cartStatus}/${userName}`);
+function fetchCartData(userid, cartStatus) {
+    const cartRef = ref(database, `cart/${vendorName}/${cartStatus}/${userid}`);
+    console.log("printing", vendorName, cartStatus, userid );
     
     onValue(cartRef, (snapshot) => {
         cartItemsContainer.innerHTML = ''; // Clear the previous content
 
         if (snapshot.exists()) {
             const cartData = snapshot.val();
+            
 
             localStorage.setItem('dataKey', JSON.stringify(cartData));
             console.log("cartData",cartData);
@@ -52,8 +69,8 @@ function fetchCartData(userName, cartStatus) {
 
                 removeBtn.addEventListener('click', () => {
                     
-                    //fetchCartData(userName, cartStatus);
-                    removeItemFromCart(userName, cartStatus, itemId);
+                    
+                    removeItemFromCart(userid, cartStatus, itemId);
                 });
 
 
@@ -73,18 +90,19 @@ function fetchCartData(userName, cartStatus) {
     });
 }
 
-const storedData = localStorage.getItem('objectGreeting');
-const myObject = JSON.parse(storedData);
+
 
 // Now you can use the data in myObject
 const customerName = myObject.customername;
+userid = myObject.userid;
+
 console.log('Customer Name:', customerName);
 
 // Replace 'userId' and 'active' with the actual user's ID and cart status
-fetchCartData(customerName, 'active');
+fetchCartData(userid, 'active');
 
-function removeItemFromCart(userName, cartStatus, itemId) {
-    const cartRef = ref(database, `cart/${cartStatus}/${userName}`);
+function removeItemFromCart(userid, cartStatus, itemId) {
+    const cartRef = ref(database, `cart/${vendorName}/${cartStatus}/${userid}`);
     update(cartRef, {
         [itemId]: null
     }).then(() => {
@@ -126,3 +144,52 @@ const logoutButton = document.getElementById('logout-btn');
             // Add logout functionality here
             
         });
+
+function calculateTotalPrice(cartItems) {
+    let totalPrice = 0;
+
+    for (const itemName in cartItems) {
+        const cartItem = cartItems[itemName];
+        totalPrice += cartItem.totalPrice;
+    }
+
+    return totalPrice;
+}
+
+
+
+setTimeout(() => {
+    
+    const cartRef = ref(database, `cart/${vendorName}/active/${userid}`);
+    get(cartRef).then((snapshot) => {
+        if(snapshot.exists()){
+            const cartData = snapshot.val();
+            const cartTotalContainer = document.createElement('div');
+    cartTotalContainer.className = 'cart-total-container';
+
+    const totalPriceText = document.createElement('p');
+    const totalAmount = calculateTotalPrice(cartData);
+    totalPriceText.textContent = `Total Price: Rs.${totalAmount}`;
+    cartTotalContainer.appendChild(totalPriceText);
+
+    const checkoutButton = document.createElement('button');
+    checkoutButton.className = 'btn btn-success';
+    checkoutButton.textContent = 'Checkout';
+    cartTotalContainer.appendChild(checkoutButton);
+
+    const cartContainer = document.querySelector('.cart-container');
+    cartContainer.appendChild(cartTotalContainer);
+        
+    checkoutButton.addEventListener('click', () => {
+        // Redirect to checkout.html
+        window.location.href = 'checkout.html';
+    });
+    }
+
+    })
+    
+
+},2000)
+
+
+

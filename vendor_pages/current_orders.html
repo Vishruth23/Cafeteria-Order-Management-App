@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href = "current_orders.css">
+    <title>Vendor Orders</title>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href = "homepage_vendor.html">Home</a>
+            <a href="#current-orders">Current Orders</a>
+            <a href="inventory.html">Inventory</a>
+        </div>
+        <button class="logout-btn" id="logout-btn">Logout</button>
+    </div>
+
+    <div class="container mt-5">
+        <h1>Currently Running Orders</h1>
+        <div id="order-container" class="mt-4">
+            <!-- Orders will be displayed here using JavaScript -->
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src= "current_orders.js" type="module"></script>
+    
+</body>
+</html>
+
+
+
+
+
+<!-- <script>
+    // You can use JavaScript to fetch and display orders here
+    // For each order, create elements and populate them with order information
+    // Add a "Completed" button with an event listener to mark the order as completed
+    
+    // Example of adding an order dynamically using JavaScript:
+    const orderList = document.getElementById('order-list');
+    
+    // Sample order data
+    const orderData = [
+        {
+            orderNumber: 1,
+            userName: 'John Doe',
+            items: [
+                { itemName: 'Item 1', quantity: 2 },
+                { itemName: 'Item 2', quantity: 3 },
+            ],
+        },
+        // ... more order data ...
+    ];
+    
+    // Loop through orders and create elements
+    orderData.forEach(order => {
+        const orderCard = document.createElement('div');
+        orderCard.className = 'card mb-3';
+        
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+        
+        const orderInfo = document.createElement('h5');
+        orderInfo.className = 'card-title';
+        orderInfo.textContent = `Order #${order.orderNumber} - ${order.userName}`;
+        
+        cardBody.appendChild(orderInfo);
+        
+        order.items.forEach(item => {
+            const itemInfo = document.createElement('p');
+            itemInfo.textContent = `${item.quantity}x ${item.itemName}`;
+            cardBody.appendChild(itemInfo);
+        });
+        
+        const completeButton = document.createElement('button');
+        completeButton.className = 'btn btn-success';
+        completeButton.textContent = 'Completed';
+        completeButton.addEventListener('click', () => {
+            // Code to mark the order as completed in the database
+            // You can remove the order from the UI once completed
+            orderCard.remove();
+        });
+        
+        cardBody.appendChild(completeButton);
+        orderCard.appendChild(cardBody);
+        orderList.appendChild(orderCard);
+    });
+</script> -->
