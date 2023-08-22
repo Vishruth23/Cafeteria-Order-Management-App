@@ -27,6 +27,19 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 
+const logoutButton = document.getElementById('logout-btn');
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                alert('Logged out');
+                window.location.assign('login_vendor.html');
+            // Sign-out successful.
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage)
+            // An error happened.
+            });
+        });
 
 const addItemButton = document.getElementById('add-item-btn');
 const itemNameInput = document.getElementById('item-name');

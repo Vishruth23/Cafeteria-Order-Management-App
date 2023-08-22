@@ -15,8 +15,21 @@ const logoutButton = document.getElementById('logout-btn');
             
         });
 
+const myObjectString = localStorage.getItem('objectGreeting');
+
+// Parse the JSON string to get the user object
+const myObject = JSON.parse(myObjectString);
+const userName = myObject.customername;
+const emailId = myObject.customer_email;
+const userid = myObject.userid;
+
+const objstring = localStorage.getItem('inv-data');
+const objdata = JSON.parse(objstring);
+const vendorName = objdata.vendorname;
+console.log(vendorName);
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getDatabase, set, ref, update, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { getDatabase, set, ref, update, get, remove, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
         // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
         
@@ -46,46 +59,8 @@ const logoutButton = document.getElementById('logout-btn');
 const orderlistref = ref(database, `cart/${myObject2.vendorname}/inprogress`);
 const usersData = ref(database, `users`);
 
-// get(orderlistref).then(function(snapshot) {
-//     if(snapshot.exists()){
 
-//         const ordersData = snapshot.val();
-//         for (let orders in ordersData){
-            
-
-//             get(customerDetails).then(function(snapshot){
-//                 if(snapshot.exists()){
-//                     const usersData = snapshot.val();
-//                     let userName = usersData[orders].name;
-
-//                     const orderCard = document.createElement('div');
-//                     orderCard.className = 'card mb-3';
-
-//                     const cardBody = document.createElement('div');
-//                     cardBody.className = 'card-body';
-
-//                     for(let itemsEach in ordersData[orders]){
-
-//                     const itemName = document.createElement('h3');
-//                     if(itemsEach!="orderNumber"){
-//                         itemName.textContent = itemsEach;
-//                     }
-
-//                     const itemQty = document.createElement('h3');
-//                     itemQty.textContent = itemsEach.quantity;
-
-
-//                     }
-//                 }
-//             })
-
-            
-//         }
-
-//     }
-// })
-
-get(orderlistref).then(function(snapshot) {
+onValue(orderlistref, function(snapshot){
     if (snapshot.exists()) {
         const ordersData = snapshot.val();
         
@@ -127,11 +102,74 @@ get(orderlistref).then(function(snapshot) {
             }
             
             const completeBtn = document.createElement('button');
-            completeBtn.textContent = 'Completed';
+            completeBtn.textContent = 'Order Ready';
             completeBtn.className = 'btn btn-primary';
+            completeBtn.id = `complete-btn-${userName}`;
             completeBtn.addEventListener('click', function() {
                 // Handle completion logic here
             });
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.className = 'buttons-container';
+            cardBody.appendChild(buttonsContainer);
+
+            setTimeout(function(){
+
+
+                let completeBtn = document.getElementById(`complete-btn-${userName}`);
+                completeBtn.addEventListener('click', async function(){
+                try {
+                    console.log("button clicked");
+                    // Move the order from "cart/active" to "cart/inprogress" in the database
+                    const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
+                    const completedOrderRef = ref(database, `cart/${vendorName}/completed/${userid}`); // New reference for ready orders
+                    
+                    
+                    
+                    // Get the order data from "cart/inprogress"
+                    const inProgressOrderSnapshot = await get(inProgressOrderRef);
+                    
+                    if (inProgressOrderSnapshot.exists()) {
+                        const inProgressOrderData = inProgressOrderSnapshot.val();
+            
+                        alert("order-ready notified");
+                        const currentDate = new Date();
+                        const transactionDateTime = currentDate.toLocaleString(); // Convert to a human-readable format
+            
+                    // Update the inProgressOrderData with the transaction date and time
+                        inProgressOrderData.transactionDateTime = transactionDateTime;
+                        
+                        // // Update the order data with the new order numbe
+                        
+                        // // Update the order in "cart/ready"
+                        // await set(readyOrderRef, inProgressOrderData);
+                        //buttonsContainer =document.querySelector('.buttons-container');
+            
+                        const markCompleteBtn = document.createElement('button');
+                        markCompleteBtn.textContent = 'Mark Complete';
+                        markCompleteBtn.className = 'btn btn-success';
+                        buttonsContainer.appendChild(markCompleteBtn);
+            
+                        markCompleteBtn.addEventListener('click', async function() {
+            
+                        await set(completedOrderRef, inProgressOrderData);
+                        // Remove the order from "cart/inprogress"
+                        remove(inProgressOrderRef);
+                        })
+                        
+                        // Redirect to the checkout page
+                        
+                        
+                        
+                    } else {
+                        console.log('No in-progress order found');
+                    }
+                } catch (error) {
+                    console.log('An error occurred:', error.message);
+                }
+            });
+            
+            },3000);
+
             cardBody.appendChild(completeBtn);
             
             orderCard.appendChild(cardBody);
@@ -141,3 +179,7 @@ get(orderlistref).then(function(snapshot) {
     }
     }
 });
+
+
+
+

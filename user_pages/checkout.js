@@ -39,8 +39,52 @@ payNowButton.addEventListener('click', async () => {
         const orderCounterRef = ref(database, 'ordernumber');
         const activeOrderRef = ref(database, `cart/${vendorName}/active/${userid}`);
         const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
+        const invRef = ref(database, `vendors/${vendorName}/inventory`);
+
+        get(activeOrderRef).then(async (snapshot) => {
+            if (snapshot.exists()) {
+                const ordersData = snapshot.val();
         
-        // Fetch the current order number from the order counter
+                // Fetch the current vendor inventory
+                get(invRef).then(async (inventorySnapshot) => {
+                    if (inventorySnapshot.exists()) {
+                        const currentInventory = inventorySnapshot.val();
+                        //console.log("current inv", currentInventory);
+        
+                        // Loop through orders
+                        for (const orderKey in Object.entries(ordersData)) {
+                            const order = Object.entries(ordersData)[orderKey];
+                            //console.log("order", order);
+        
+                            // Loop through items in the order
+                            let itemName = order[0];
+                            let categoryName=order[1].category; 
+                            
+                            
+                                
+                                if (categoryName != 'beverage') {
+                                    
+                                    let orderedQuantity = order[1].quantity;
+                                    //console.log(orderedQuantity);
+                                    
+                                    // Subtract ordered quantity from the current inventory
+                                    if (currentInventory[categoryName]) {
+                                        //console.log("item name", orderedQuantity);
+                                        currentInventory[categoryName][itemName].quantity -= orderedQuantity;
+                                    }
+                                }
+                            
+                        }
+        
+                        // Update the vendor's inventory in the database with the new quantities
+                        await set(invRef, currentInventory);
+                    }
+                });
+            }
+        });
+
+        
+        //Fetch the current order number from the order counter
         const orderCounterSnapshot = await get(orderCounterRef);
         let orderNumber = 1; // Default order number if counter doesn't exist
         
@@ -65,9 +109,11 @@ payNowButton.addEventListener('click', async () => {
             
             // Remove the order from "cart/active"
             await remove(activeOrderRef);
+
+
             
             // Redirect to the checkout page
-            window.location.assign('payment.html');
+           window.location.assign('payment.html');
         } else {
             console.log('No active order found');
         }

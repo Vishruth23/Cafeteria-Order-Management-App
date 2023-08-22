@@ -13,7 +13,8 @@
     <div class="navbar">
         <div>
             <a href = "homepage_vendor.html">Home</a>
-            <a href="#current-orders">Current Orders</a>
+            <a href="current-orders.html">Current Orders</a>
+            <a href="past_orders_vendor.html">Past orders</a>
             <a href="#inventory">Inventory</a>
         </div>
     
@@ -41,50 +42,6 @@
             <!-- Inventory items will be added here using JavaScript -->
         </div>
     </div>
-    
-    <script type="module">
-   
-
-
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-        // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
-        
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-        apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
-        authDomain: "zense-offl.firebaseapp.com",
-        databaseURL: "https://zense-offl-default-rtdb.firebaseio.com",
-        projectId: "zense-offl",
-        storageBucket: "zense-offl.appspot.com",
-        messagingSenderId: "297061345791",
-        appId: "1:297061345791:web:4d53117c64b367bdcbdfca"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const auth = getAuth();
-
-        const logoutButton = document.getElementById('logout-btn');
-        logoutButton.addEventListener('click', () => {
-            signOut(auth).then(() => {
-                alert('Logged out');
-                window.location.assign('login_vendor.html');
-            // Sign-out successful.
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage)
-            // An error happened.
-            });
-        });
-
-    </script>
     <script src = "inventory.js" type="module"></script>
 </body>
 </html>

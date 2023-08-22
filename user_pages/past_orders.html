@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="homepage_user.css">
-    <title>User Home Page</title>
+    <title>Past Orders</title>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">User Home</a>
@@ -37,22 +38,14 @@
         </div>
     </nav>
 
-    <div class="container placeorder" >
-        <h1>Click on The Coffee Cove to Place Your Order</h1>
-        <div class="buttons">
-            <button class="button" id="aryabhatta-button">Aryabhatta Ground Floor</button>
-            <button class="button" id="ramanujan-button">Ramanujan 1st Floor</button>
+    <!-- Page content -->
+    <div class="container">
+        <h1>Past Orders</h1>
+        <div id="order-list" class="order-list">
+            <!-- Past orders will be displayed here -->
         </div>
     </div>
-
-    <div class="container mt-4">
-        <div id="order-container">
-            <!-- Content of the page will be dynamically updated here using JavaScript -->
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="homepage_user.js" type="module"></script>
-    <script src="fetch_curr_order.js" type="module"></script>
+    <script src="past_orders.js" type="module"></script>
 </body>
 </html>
