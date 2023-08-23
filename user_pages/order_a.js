@@ -63,6 +63,17 @@ function createInventoryItem(name, category, quantity, price) {
     addtocartbtn.className = 'btn btn-primary';
     addtocartbtn.textContent = 'Add to Cart';
     addtocartbtn.id = `atc-${name.replace(/\s+/g, '')}`
+
+
+    const inventoryRef = ref(database, `vendors/aryabhatta/inventory/${category}/${name}/quantity`);
+    get(inventoryRef).then((inventorySnapshot) => {
+        const availableQuantity = inventorySnapshot.val();
+
+        if (availableQuantity == '0') {
+            addtocartbtn.textContent = 'Out of Stock';
+            addtocartbtn.disabled = true;
+        }
+    })
     //console.log(addtocartbtn.id);
 
 /////////
@@ -125,6 +136,9 @@ function createInventoryItem(name, category, quantity, price) {
 
 
     addtocartbtn.addEventListener('click', function addToCartClicked() {
+
+        
+
         //console.log(`Add to cart clicked - name: ${name}`);
         addtocartbtn.textContent = 'Added to Cart';
         total_price = Number(price);
@@ -137,12 +151,12 @@ function createInventoryItem(name, category, quantity, price) {
         let quantityValue = 1;
         quantityDisplay.textContent = quantityValue;
 
-        
 
         plusBtn.addEventListener('click', async function () {
             const inventoryRef = ref(database, `vendors/aryabhatta/inventory/${category}/${name}/quantity`);
             const inventorySnapshot = await get(inventoryRef);
             const availableQuantity = inventorySnapshot.val();
+
         
             if(category!="beverage"){
             if (quantityValue < availableQuantity) {

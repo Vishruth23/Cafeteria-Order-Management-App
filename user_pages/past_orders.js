@@ -40,12 +40,13 @@ const myObject = JSON.parse(storedData);
 const emailId = myObject.customer_email;
 let userid = myObject.userid;
 
-const pastOrdersRef1 = ref(database, `cart/ramanujan/completed/${userid}`);
+const pastOrdersRef1 = ref(database, `cart/aryabhatta/completed`);
+const pastOrdersRef2 = ref(database, `cart/ramanujan/completed`);
 
 // Function to display orders
-function displayPastOrders(ordersData) {
+function displayPastOrders(cclocation,ordernumber, ordersData) {
     const orderList = document.getElementById("order-list");
-    orderList.innerHTML = ""; // Clear previous content
+    //orderList.innerHTML = ""; // Clear previous content
 
     const orderContainer = document.createElement("div");
     orderContainer.className = "order-container";
@@ -55,60 +56,89 @@ function displayPastOrders(ordersData) {
 
     for (const orderKey in ordersData) {
         
+        if(orderKey==userid){
         const order = ordersData[orderKey];
-        console.log(ordersData);
+        console.log(orderKey);
 
         
+
+        const orderContainer = document.createElement("div");
+        orderContainer.className = "order-container";
+
+        const orderCard = document.createElement("div");
+        orderCard.className = "order-card";
         
 
         const orderNumber = document.createElement('h3');
-        orderNumber.textContent = `Order Number: ${order.orderNumber}`;
+        orderNumber.textContent = `Order Number: ${ordernumber}`;
         orderCard.appendChild(orderNumber);
 
         const transactionTime = document.createElement('h3');
-        transactionTime.textContent = `Date/Time of order: ${order.transactionDateTime}`;
+        transactionTime.textContent = `Date/Time of order: ${ordersData.transactionDateTime}`;
         orderCard.appendChild(transactionTime);
 
-        // let total_price = 0;
-        // for(let orderit in order){
+        const cc_location = document.createElement('h3');
+        cc_location.textContent = `Location: ${cclocation} Coffee Cove`;
+        orderCard.appendChild(cc_location);
+
+        if(orderKey!="transactionDateTime"){
+            //console.log(order);
+
+        let total_price = 0;
+        for(let orderit in order){
+            console.log(orderit)
             
             
-        //     if(orderit !="transactionDateTime" && orderit!="orderNumber"){
+            if(orderit!="orderNumber"){
                 
 
-        //         const ItemName = document.createElement('p');
-        //         ItemName.textContent = `Item name: ${orderit}`;
-        //         orderCard.appendChild(ItemName);
+                const ItemName = document.createElement('p');
+                ItemName.textContent = `Item name: ${orderit}`;
+                orderCard.appendChild(ItemName);
 
-        //         const Itemqty = document.createElement('p');
-        //         Itemqty.textContent = `Qty: ${order[orderit].quantity}, Price: Rs.${order[orderit].totalPrice}`;
-        //         orderCard.appendChild(Itemqty);
+                const Itemqty = document.createElement('p');
+                Itemqty.textContent = `Qty: ${order[orderit].quantity}, Price: Rs.${order[orderit].totalPrice}`;
+                orderCard.appendChild(Itemqty);
 
-        //         total_price = total_price+order[orderit].totalPrice;
-        //     }
+                total_price = total_price+order[orderit].totalPrice;
+            }
 
-        // }
+        }
 
-        // const totalPricetext = document.createElement('h3');
-        // totalPricetext.textContent = `Total Cost: ${total_price}`;
-        // orderCard.appendChild(totalPricetext);
-        // 
+        const totalPricetext = document.createElement('h3');
+        totalPricetext.textContent = `Total Cost: ${total_price}`;
+        orderCard.appendChild(totalPricetext);
         
+    
         
 
         // Create order details elements (e.g., order number, customer name, items, etc.)
         // Append these elements to the orderCard
 
-        // orderContainer.appendChild(orderCard);
-        // orderList.appendChild(orderContainer);
+        orderContainer.appendChild(orderCard);
+        orderList.appendChild(orderContainer);
     }
+}
+}
 }
 
 // Listen for changes in past orders
 onValue(pastOrdersRef1, (snapshot) => {
     if (snapshot.exists()) {
         const ordersData = snapshot.val();
-        //console.log(ordersData);
-        displayPastOrders(ordersData);
+        for(let [i,j] of Object.entries(ordersData)){
+            //console.log(i,j)
+            displayPastOrders("Aryabhatta",i,j);
+        }
+    }
+});
+
+onValue(pastOrdersRef2, (snapshot) => {
+    if (snapshot.exists()) {
+        const ordersData = snapshot.val();
+        for(let [i,j] of Object.entries(ordersData)){
+            //console.log(i,j)
+            displayPastOrders("Ramanujan",i,j);
+        }
     }
 });

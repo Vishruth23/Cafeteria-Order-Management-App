@@ -38,7 +38,7 @@ payNowButton.addEventListener('click', async () => {
         // Move the order from "cart/active" to "cart/inprogress" in the database
         const orderCounterRef = ref(database, 'ordernumber');
         const activeOrderRef = ref(database, `cart/${vendorName}/active/${userid}`);
-        const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
+        //const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
         const invRef = ref(database, `vendors/${vendorName}/inventory`);
 
         get(activeOrderRef).then(async (snapshot) => {
@@ -102,6 +102,9 @@ payNowButton.addEventListener('click', async () => {
             activeOrderData.orderNumber = orderNumber;
             
             // Update the order in "cart/inprogress"
+            //await set(inProgressOrderRef, activeOrderData);
+            
+            const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${orderNumber}/${userid}`);
             await set(inProgressOrderRef, activeOrderData);
             
             // Update the order counter with the new value
@@ -109,19 +112,40 @@ payNowButton.addEventListener('click', async () => {
             
             // Remove the order from "cart/active"
             await remove(activeOrderRef);
-
-
             
             // Redirect to the checkout page
-           window.location.assign('payment.html');
+            window.location.assign('payment.html');
         } else {
             console.log('No active order found');
         }
     } catch (error) {
-        console.error('An error occurred:', error);
+        console.log('An error occurred:', error.message);
     }
-
 });
+
+
+
+
+
+
+//             // Update the order counter with the new value
+//             await set(orderCounterRef, { value: orderNumber });
+            
+//             // Remove the order from "cart/active"
+//             await remove(activeOrderRef);
+
+
+            
+//             // Redirect to the checkout page
+//            window.location.assign('payment.html');
+//         } else {
+//             console.log('No active order found');
+//         }
+//     } catch (error) {
+//         console.error('An error occurred:', error);
+//     }
+
+// });
 
 const logoutButton = document.getElementById('logout-btn');
         logoutButton.addEventListener('click', () => {

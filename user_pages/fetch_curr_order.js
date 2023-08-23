@@ -23,7 +23,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebas
         const auth = getAuth();
 
 
-
+       
+console.log(Notification.permission);
 
 
 const objstring = localStorage.getItem('inv-data');
@@ -42,14 +43,18 @@ const usersData = ref(database, `users`);
 
 
 onValue(orderlistref, function(){
-
+    document.getElementById('order-container').innerHTML=""
 
     get(orderlistref).then(function(snapshot) {
         if (snapshot.exists()) {
             const ordersData = snapshot.val();
             
+            
             for (let orderKey in ordersData) {
-                const order = ordersData[orderKey];
+
+                let order = ordersData[orderKey][userid];
+                console.log(order);
+                
                 
                 
                 const orderCard = document.createElement('div');
@@ -63,7 +68,7 @@ onValue(orderlistref, function(){
                 get(usersData).then(function(snapshot){
                     if(snapshot.exists()){
                         const usersData = snapshot.val();
-                        let userName = usersData[orderKey].name;
+                        let userName = usersData[Object.keys(ordersData[orderKey])[0]].name;
                 
                 const orderNumber = document.createElement('h3');
                 orderNumber.textContent = `Order Number: ${order.orderNumber}`;

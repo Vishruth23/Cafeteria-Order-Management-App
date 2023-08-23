@@ -62,10 +62,19 @@ const usersData = ref(database, `users`);
 
 onValue(orderlistref, function(snapshot){
     if (snapshot.exists()) {
+
+        let orderCont = document.getElementById("order-container");
+        orderCont.innerHTML="";
         const ordersData = snapshot.val();
+        //console.log(ordersData)
         
         for (let orderKey in ordersData) {
-            const order = ordersData[orderKey];
+            
+            let order = ordersData[orderKey];
+            order = Object.values(order)[0];
+            let orderNumber = order.orderNumber;
+            //console.log("order number", orderNumber)
+            
             
             
             const orderCard = document.createElement('div');
@@ -79,7 +88,8 @@ onValue(orderlistref, function(snapshot){
             get(usersData).then(function(snapshot){
                 if(snapshot.exists()){
                     const usersData = snapshot.val();
-                    let userName = usersData[orderKey].name;
+                    //console.log(Object.keys(ordersData[orderKey])[0]);
+                    let userName = usersData[Object.keys(ordersData[orderKey])[0]].name;
             
             const orderNumber = document.createElement('h3');
             orderNumber.textContent = `Order Number: ${order.orderNumber}`;
@@ -104,7 +114,7 @@ onValue(orderlistref, function(snapshot){
             const completeBtn = document.createElement('button');
             completeBtn.textContent = 'Order Ready';
             completeBtn.className = 'btn btn-primary';
-            completeBtn.id = `complete-btn-${userName}`;
+            completeBtn.id = `complete-btn-${order.orderNumber}`;
             completeBtn.addEventListener('click', function() {
                 // Handle completion logic here
             });
@@ -115,13 +125,13 @@ onValue(orderlistref, function(snapshot){
             setTimeout(function(){
 
 
-                let completeBtn = document.getElementById(`complete-btn-${userName}`);
+                let completeBtn = document.getElementById(`complete-btn-${order.orderNumber}`);
                 completeBtn.addEventListener('click', async function(){
                 try {
                     console.log("button clicked");
                     // Move the order from "cart/active" to "cart/inprogress" in the database
-                    const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
-                    const completedOrderRef = ref(database, `cart/${vendorName}/completed/${userid}`); // New reference for ready orders
+                    const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${order.orderNumber}`);
+                    const completedOrderRef = ref(database, `cart/${vendorName}/completed/${order.orderNumber}`); // New reference for ready orders
                     
                     
                     

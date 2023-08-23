@@ -19,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 
+
 // Logout functionality
 const logoutButton = document.getElementById('logout-btn');
         logoutButton.addEventListener('click', () => {

@@ -43,14 +43,17 @@ const logoutButton = document.getElementById('logout-btn');
 const pastOrdersRef = ref(database, `cart/${myObject2.vendorname}/completed`);
 
 // Function to display orders
-function displayPastOrders(ordersData) {
+function displayPastOrders(ordernumber, ordersData) {
     const orderList = document.getElementById("order-list");
     
-    console.log(ordersData)
+    //console.log(ordersData);
+    
 
     for (const orderKey in ordersData) {
         
+        
         const order = ordersData[orderKey];
+        
 
         const orderContainer = document.createElement("div");
         orderContainer.className = "order-container";
@@ -60,18 +63,22 @@ function displayPastOrders(ordersData) {
         
 
         const orderNumber = document.createElement('h3');
-        orderNumber.textContent = `Order Number: ${order.orderNumber}`;
+        orderNumber.textContent = `Order Number: ${ordernumber}`;
         orderCard.appendChild(orderNumber);
 
         const transactionTime = document.createElement('h3');
-        transactionTime.textContent = `Date/Time of order: ${order.transactionDateTime}`;
+        transactionTime.textContent = `Date/Time of order: ${ordersData.transactionDateTime}`;
         orderCard.appendChild(transactionTime);
+
+        if(orderKey!="transactionDateTime"){
+            //console.log(order);
 
         let total_price = 0;
         for(let orderit in order){
+            console.log(orderit)
             
             
-            if(orderit !="transactionDateTime" && orderit!="orderNumber"){
+            if(orderit!="orderNumber"){
                 
 
                 const ItemName = document.createElement('p');
@@ -101,42 +108,47 @@ function displayPastOrders(ordersData) {
         orderList.appendChild(orderContainer);
     }
 }
+}
+
+/////////past orders needs to be changed
 
 
-onValue(pastOrdersRef, (snapshot) => {
-    if (snapshot.exists()) {
-        const ordersData = snapshot.val();
+// onValue(pastOrdersRef, (snapshot) => {
+//     if (snapshot.exists()) {
+//         const ordersData = snapshot.val();
         
-        // Retrieve existing data from local storage
-        const existingDataString = localStorage.getItem("pastOrders");
-        let existingData = JSON.parse(existingDataString);
+//         // Retrieve existing data from local storage
+//         const existingDataString = localStorage.getItem("pastOrders");
+//         let existingData = JSON.parse(existingDataString);
         
-        if (!Array.isArray(existingData)) {
-            existingData = [];
-        }
+//         if (!Array.isArray(existingData)) {
+//             existingData = [];
+//         }
         
-        // Check if the new data is already present in the stored data
-        const newDataKey = Object.keys(ordersData)[0]; // Assuming each order has a unique key
-        const isDataAlreadyStored = existingData.some(data => Object.keys(data)[0] === newDataKey);
+//         // Check if the new data is already present in the stored data
+//         const newDataKey = Object.keys(ordersData)[0]; // Assuming each order has a unique key
+//         const isDataAlreadyStored = existingData.some(data => Object.keys(data)[0] === newDataKey);
         
-        if (!isDataAlreadyStored) {
-            existingData.push(ordersData);
-            localStorage.setItem("pastOrders", JSON.stringify(existingData));
-        }
-    }
-});
+//         if (!isDataAlreadyStored) {
+//             existingData.push(ordersData);
+//             localStorage.setItem("pastOrders", JSON.stringify(existingData));
+//         }
+//     }
+// });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const storedOrdersData = localStorage.getItem("pastOrders");
 
-    if (storedOrdersData) {
-        const ordersData = JSON.parse(storedOrdersData);
-        console.log("ordersdata", ordersData)
-        for(let i=0; i<ordersData.length; i++){
-            displayPastOrders(ordersData[i]);
-        }
+onValue(pastOrdersRef, (snapshot) =>{
+    if(snapshot.exists()){
+        const existingData = snapshot.val();
+        for(let [i,j] of Object.entries(existingData))
+        //console.log(i,j);
+        displayPastOrders(i,j);
+        }   
+})
+
+    
         
-    }
-});
+        
+
 
 
