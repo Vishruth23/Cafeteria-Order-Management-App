@@ -7,6 +7,9 @@
 }
 
 html,body{
+    background-image: url('./../background_signup\ .png');
+  background-size: cover;
+  background-position: relative;
     display: grid;
     height: 100%;
     place-items: center;

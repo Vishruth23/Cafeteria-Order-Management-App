@@ -1,66 +1,107 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-html,body{
-    display: grid;
-    height: 100%;
-    place-items: center;
-    background-color: #f2f2f2;
+/* Background Styles */
+html, body {
+  /* background: linear-gradient(180deg, rgba(236, 91, 91, 0.253), rgba(224, 224, 224, 0.667)); */
+  background-image: url('./../background_signup\ .png');
+  background-size: cover;
+  background-position: relative;
+  display: grid;
+  top:40px;
+  height: 100%;
+  place-items: center;
+  background-color: #f2f2f2;
+  /* backdrop-filter: blur(10px); Apply blur effect to background */
 }
 
-.wrapper{
-    width: 380px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+/* Wrapper Styles */
+.wrapper {
+  width: 380px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-.wrapper .title{
-    font-weight: 600;
-    text-align: center;
-    font-size: large;
-    line-height: 80px;
-    border-radius: 15px 15px 0px 0px;
+.wrapper .title {
+  font-weight: 600;
+  text-align: center;
+  font-size: large;
+  line-height: 80px;
+  border-radius: 15px 15px 0px 0px;
 }
 
-.wrapper form{
-    padding: 10px 30px 30px 30px;
+.wrapper form {
+  padding: 10px 30px 30px 30px;
 }
 
-.wrapper form .field{
-    height: 45px;
-    width: 100%;
-    margin-top: 14%;
+.wrapper form .field {
+  height: 45px;
+  width: 100%;
+  margin-top: 14%;
 }
 
-.wrapper form .field input{
-    height: 100%;
-    width: 100%;
-    font-size: 17px;
-    padding-left: 10px;
-    border-radius: 15px;
-    border-width: 1px;
-    border-color: lightgray;
-    outline: none;
+/* Input Styles */
+.wrapper form .field input {
+  height: 100%;
+  width: 100%;
+  font-size: 17px;
+  padding-left: 10px;
+  border-radius: 15px;
+  border-width: 1px;
+  border-color: lightgray;
+  outline: none;
 }
 
-.wrapper form .field input[type = "submit"]{
-    cursor: pointer;
+/* Button Styles */
+.wrapper form .field input[type="submit"].css-button-sliding-to-left--red {
+  min-width: 130px;
+  height: 40px;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  background: transparent;
+  overflow: hidden;
+  border: 2px solid #d90429;
+  color: #d90429;
 }
 
-.wrapper form .field input[type = "submit"]:hover{
-    background-color: rgb(196, 195, 195);
-    transition: background-color 0.3s ease;
+.wrapper form .field input[type="submit"].css-button-sliding-to-left--red:hover {
+  color: #fff;
+  background: #d90429;
+  transition: 0.5s ease; /* Adjust transition duration */
 }
 
-.wrapper form .login-link{
-    text-align: center;
-    margin-top: 10px;
+.wrapper form .field input[type="submit"].css-button-sliding-to-left--red:hover:after {
+  width: 100%;
 }
 
+.wrapper form .field input[type="submit"].css-button-sliding-to-left--red:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: width 0.5s ease; /* Adjust transition duration */
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: #d90429;
+}
 
+.wrapper form .login-link {
+  text-align: center;
+  margin-top: 10px;
+}

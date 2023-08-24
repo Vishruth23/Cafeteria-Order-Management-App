@@ -3,16 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href = "index.css">
+<link rel="stylesheet" href="index.css">
 <title>Welcome</title>
 </head>
-<body>
+<body class="kenburns-top">
+  <div class="strip-background"></div>
+  <h1>Welcome to Coffee Cove Order Management App!</h1>
+ 
   <div class="container">
-    <h2>Welcome to Our Website</h2>
     <p>Please select your role:</p>
-    <div class="btn-div">
-      <label for="vendor" class="role-label">Vendor</label>
-      <input type="button" id="vendor" class="btn vendor role-input" value="Vendor" onclick="window.location.href='./../vendor_pages/login_vendor.html'">
+    <div class="btn-vendor">
+      <div class="btn-div">
+        <label for="vendor" class="role-label">Vendor</label>
+        <input type="button" id="vendor" class="btn vendor role-input" value="Vendor" onclick="window.location.href='./../vendor_pages/login_vendor.html'">
+      </div>
     </div>
     <div class="btn-div">
       <label for="customer" class="role-label">Customer</label>
