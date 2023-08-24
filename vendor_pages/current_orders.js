@@ -17,10 +17,10 @@ const logoutButton = document.getElementById('logout-btn');
 
 
 
-const objstring = localStorage.getItem('inv-data');
-const objdata = JSON.parse(objstring);
-const vendorName = objdata.vendorname;
-console.log(vendorName);
+// const objstring = localStorage.getItem('inv-data');
+// const objdata = JSON.parse(objstring);
+// const vendorName = objdata.vendorname;
+// console.log(vendorName);
 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
         import { getDatabase, set, ref, update, get, remove, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";

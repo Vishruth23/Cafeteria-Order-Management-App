@@ -82,6 +82,7 @@
                                 const inv = vendorDetails.inventory;
                                 //console.log(inv);
                                 const myObject = {vendorname: `${vendorName}`, inventory: inv}
+                                console.log(myObject);
                                 const myObjectString = JSON.stringify(myObject);
                                 localStorage.setItem('objectdata', myObjectString);
                                 window.location.assign('homepage_vendor.html');
