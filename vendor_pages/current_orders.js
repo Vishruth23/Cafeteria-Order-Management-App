@@ -48,6 +48,7 @@ const logoutButton = document.getElementById('logout-btn');
 
         const myObjectString2 = localStorage.getItem('objectdata');
         const myObject2 = JSON.parse(myObjectString2);
+        vendorName = myObjectString2.vendorname;
         console.log(myObject2);
 
 const orderlistref = ref(database, `cart/${myObject2.vendorname}/inprogress`);
