@@ -15,13 +15,7 @@ const logoutButton = document.getElementById('logout-btn');
             
         });
 
-const myObjectString = localStorage.getItem('objectGreeting');
 
-// Parse the JSON string to get the user object
-const myObject = JSON.parse(myObjectString);
-const userName = myObject.customername;
-const emailId = myObject.customer_email;
-const userid = myObject.userid;
 
 const objstring = localStorage.getItem('inv-data');
 const objdata = JSON.parse(objstring);
