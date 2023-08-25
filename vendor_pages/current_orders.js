@@ -121,17 +121,22 @@ onValue(orderlistref, function(snapshot){
 
 
                 let completeBtn = document.getElementById(`complete-btn-${order.orderNumber}`);
+                console.log(order.orderNumber);
+                
                 completeBtn.addEventListener('click', async function(){
                 try {
-                    console.log("button clicked");
+                    //console.log("button clicked");
                     // Move the order from "cart/active" to "cart/inprogress" in the database
-                    const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${order.orderNumber}`);
+                    const inProgressOrderRef = ref(database, `cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
+                    //console.log(order.orderNumber);
                     const completedOrderRef = ref(database, `cart/${vendorName}/completed/${order.orderNumber}`); // New reference for ready orders
                     
-                    
+                    console.log(`cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
                     
                     // Get the order data from "cart/inprogress"
                     const inProgressOrderSnapshot = await get(inProgressOrderRef);
+
+                    console.log(inProgressOrderSnapshot.val());
                     
                     if (inProgressOrderSnapshot.exists()) {
                         const inProgressOrderData = inProgressOrderSnapshot.val();

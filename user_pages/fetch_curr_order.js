@@ -24,13 +24,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebas
 
 
        
-console.log(Notification.permission);
 
 
-const objstring = localStorage.getItem('inv-data');
-const objdata = JSON.parse(objstring);
-const vendorName = objdata.vendorname;
-console.log(vendorName);
+
+// const objstring = localStorage.getItem('inv-data');
+// const objdata = JSON.parse(objstring);
+// const vendorName = objdata.vendorname;
+// console.log(vendorName);
 
 const storedData = localStorage.getItem('objectGreeting');
 const myObject = JSON.parse(storedData);
@@ -47,57 +47,59 @@ onValue(orderlistref, function(){
 
     get(orderlistref).then(function(snapshot) {
         if (snapshot.exists()) {
-            const ordersData = snapshot.val();
-            
-            
-            for (let orderKey in ordersData) {
 
+            const loadingContainer = document.getElementById('loading-container');
+            loadingContainer.style.display = 'none';
+
+
+
+            const ordersData = snapshot.val();
+    
+            for (let orderKey in ordersData) {
                 let order = ordersData[orderKey][userid];
-                console.log(order);
-                
-                
-                
+    
                 const orderCard = document.createElement('div');
                 orderCard.className = 'card mb-3';
-                
+    
                 const cardBody = document.createElement('div');
                 cardBody.className = 'card-body';
-                
-                
-                
+    
                 get(usersData).then(function(snapshot){
                     if(snapshot.exists()){
                         const usersData = snapshot.val();
                         let userName = usersData[Object.keys(ordersData[orderKey])[0]].name;
-                
-                const orderNumber = document.createElement('h3');
-                orderNumber.textContent = `Order Number: ${order.orderNumber}`;
-                cardBody.appendChild(orderNumber);
-
-                const location = document.createElement('h3');
-                location.textContent = `aryabhatta`;
-                cardBody.appendChild(location);
-                
-
-                for (let itemKey in order) {
-                    if (itemKey !== 'orderNumber') {
-                        const itemName = document.createElement('h6');
-                        itemName.textContent = itemKey;
-                        cardBody.appendChild(itemName);
-                        
-                        const itemQty = document.createElement('h6');
-                        itemQty.textContent = `Quantity: ${order[itemKey].quantity}`;
-                        cardBody.appendChild(itemQty);
+    
+                        const orderNumber = document.createElement('h3');
+                        orderNumber.textContent = `Order Number: ${order.orderNumber}`;
+                        orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        cardBody.appendChild(orderNumber);
+    
+                        const location = document.createElement('h3');
+                        location.textContent = 'Aryabhatta'; // You can change this to your actual location
+                        location.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        cardBody.appendChild(location);
+    
+                        // Create an unordered list to hold the items
+                        const itemList = document.createElement('ul');
+                        for (let itemKey in order) {
+                            if (itemKey !== 'orderNumber') {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `${itemKey}: Quantity - ${order[itemKey].quantity}`;
+                                itemList.appendChild(listItem);
+                            }
+                        }
+    
+                        cardBody.appendChild(itemList);
+    
+                        orderCard.appendChild(cardBody);
+                        // Append the order card to the order container
+                        document.getElementById('order-container').appendChild(orderCard);
                     }
-                }
-                
-                orderCard.appendChild(cardBody);
-                // Assuming you have an element with the ID "order-container" in your HTML
-                document.getElementById('order-container').appendChild(orderCard);
-            }})
-        }
+                });
+            }
         }
     });
+    
 
 })
 
@@ -108,53 +110,59 @@ onValue(orderlistref2, function(){
 
     get(orderlistref2).then(function(snapshot) {
         if (snapshot.exists()) {
+
+            const loadingContainer = document.getElementById('loading-container');
+            loadingContainer.style.display = 'none';
+
+
+
             const ordersData = snapshot.val();
-            
+    
             for (let orderKey in ordersData) {
-                const order = ordersData[orderKey];
-                
-                
+                let order = ordersData[orderKey][userid];
+    
                 const orderCard = document.createElement('div');
                 orderCard.className = 'card mb-3';
-                
+    
                 const cardBody = document.createElement('div');
                 cardBody.className = 'card-body';
-                
-                
-                
+    
                 get(usersData).then(function(snapshot){
                     if(snapshot.exists()){
                         const usersData = snapshot.val();
-                        let userName = usersData[orderKey].name;
-                
-                const orderNumber = document.createElement('h3');
-                orderNumber.textContent = `Order Number: ${order.orderNumber}`;
-                cardBody.appendChild(orderNumber);
-
-                const location = document.createElement('h3');
-                location.textContent = `ramanujan`;
-                cardBody.appendChild(location);
-                
-
-                for (let itemKey in order) {
-                    if (itemKey !== 'orderNumber') {
-                        const itemName = document.createElement('h6');
-                        itemName.textContent = itemKey;
-                        cardBody.appendChild(itemName);
-                        
-                        const itemQty = document.createElement('h6');
-                        itemQty.textContent = `Quantity: ${order[itemKey].quantity}`;
-                        cardBody.appendChild(itemQty);
+                        let userName = usersData[Object.keys(ordersData[orderKey])[0]].name;
+    
+                        const orderNumber = document.createElement('h3');
+                        orderNumber.textContent = `Order Number: ${order.orderNumber}`;
+                        orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        cardBody.appendChild(orderNumber);
+    
+                        const location = document.createElement('h3');
+                        location.textContent = 'Ramanujan'; // You can change this to your actual location
+                        location.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        cardBody.appendChild(location);
+    
+                        // Create an unordered list to hold the items
+                        const itemList = document.createElement('ul');
+                        for (let itemKey in order) {
+                            if (itemKey !== 'orderNumber') {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `${itemKey}: Quantity - ${order[itemKey].quantity}`;
+                                itemList.appendChild(listItem);
+                            }
+                        }
+    
+                        cardBody.appendChild(itemList);
+    
+                        orderCard.appendChild(cardBody);
+                        // Append the order card to the order container
+                        document.getElementById('order-container').appendChild(orderCard);
                     }
-                }
-                
-                orderCard.appendChild(cardBody);
-                // Assuming you have an element with the ID "order-container" in your HTML
-                document.getElementById('order-container').appendChild(orderCard);
-            }})
-        }
+                });
+            }
         }
     });
+    
 
 })
 

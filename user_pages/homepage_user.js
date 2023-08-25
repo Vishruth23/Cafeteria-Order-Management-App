@@ -78,25 +78,26 @@ ramanujanButton.addEventListener('click', () => {
 });
 
 
-// Initial content of the page (no past orders)
-// const content = document.getElementById('content');
-// content.innerHTML = "<p>You have no past orders.</p>";
+function newNotification(){
+    const notification = new Notification("New message from vishruth!", {
+        body: "this is a notification feature"
+    })
+}
+//console.log(Notification.permission);
+if(Notification.permission=="granted"){
+    console.log("should have come")
+    newNotification();
+}
+else if(Notification.permission!="denied"){
+    Notification.requestPermission().then(permission =>{
+        if(permission=="granted"){
+            newNotification();
+        }
+        
+    })
+}
 
-// Listen to changes in past orders and update content
 
 
-// onValue(ref(database, `users/${auth.currentUser.uid}/pastOrders`), (snapshot) => {
-//     if (snapshot.exists()) {
-//         // Update content with past order details
-//         // Iterate through orders and create HTML elements as needed
-//     } else {
-//         // No past orders, display a message
-//         content.innerHTML = "<p>You have no past orders.</p>";
-//     }
-// });
 
 
-// Add code to handle placing orders and managing the cart
-// ...
-
-// Add more JavaScript code as needed

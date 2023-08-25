@@ -1,5 +1,10 @@
 body {
     font-family: Arial, sans-serif;
+    background-image: url("./../bgimg1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .container {
@@ -263,6 +268,74 @@ body {
   .cart-icon:focus {
     outline: none;
   }
+
+
+  #loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust the height as needed */
+}
+
+.loader {
+    border: 8px solid #f3f3f3; /* Light gray */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-container p {
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+
+
+
+
+/* Add any custom CSS rules here */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin-bottom: 1.5rem; /* Increased spacing between cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow */
+}
+
+.card-header {
+    padding: 0.5rem 1rem; /* Padding for the header */
+    background-color: #f8f9fa; /* Light gray background color */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.25rem; /* Increased font size */
+}
+
+ul {
+    padding-left: 1rem;
+    list-style-type: none;
+    margin: 0; /* Removed default margin for ul */
+}
+
+li {
+    margin-bottom: 0.25rem; /* Reduced spacing between items */
+    font-size: 1rem; /* Increased font size */
+}
+
+
   
 
 
