@@ -78,24 +78,7 @@ ramanujanButton.addEventListener('click', () => {
 });
 
 
-function newNotification(){
-    const notification = new Notification("New message from vishruth!", {
-        body: "this is a notification feature"
-    })
-}
-//console.log(Notification.permission);
-if(Notification.permission=="granted"){
-    console.log("should have come")
-    newNotification();
-}
-else if(Notification.permission!="denied"){
-    Notification.requestPermission().then(permission =>{
-        if(permission=="granted"){
-            newNotification();
-        }
-        
-    })
-}
+
 
 
 
