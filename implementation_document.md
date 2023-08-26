@@ -1,6 +1,6 @@
 # Implementation and my experience during development (Steps)
 
-1.  **Designing responsive mobile friendly web pages**:
+1.  ### Designing responsive mobile friendly web pages:
 
 <li>HTML Structure: Created the basic structure of web pages using HTML, including elements for headers, navigation bars, content sections, and footers.
 <br><br>
@@ -14,7 +14,7 @@
 This particular section itself was challenging initially and time consuming as I was a beginner to HTML, CSS and bootstrap. However it got easier as time passed by and while nearing the end of the project, I could create web-pages without much difficulty.
 <br><br>
 
-2. **Firebase Integration and Authentication:**
+2. ### Firebase Integration and Authentication:
 
 <li> Firebase Setup: Signed-up for Firebase and created a new project in the Firebase Console. Configured my app with the provided configuration keys.
 <br><br>
@@ -29,7 +29,7 @@ This particular section itself was challenging initially and time consuming as I
 Firebase seemed to provide additional features like email verification, security and authentication features, hence my decision to choose firebase realtime database for this project.
 <br><br>
 
-3. **Fetching Real-Time Data and Webpage Updates:**
+3. ### Fetching Real-Time Data and Webpage Updates:
 
 <li>Firebase Realtime Database: Created a Firebase Realtime Database to store data related to menus, inventory, orders, users, and notifications.
 <br><br>
