@@ -39,6 +39,9 @@ onValue(orderlistref, function(){
             const loadingContainer = document.getElementById('loading-container');
             loadingContainer.style.display = 'none';
 
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            noOrdersMessage.style.display = 'none';
+
 
 
             const ordersData = snapshot.val();
@@ -110,6 +113,13 @@ onValue(orderlistref, function(){
                 });
             }
         }
+        else{
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            noOrdersMessage.style.display = 'block';
+            const loadingContainer = document.getElementById('loading-container');
+            loadingContainer.style.display = 'none';
+            return;
+        }
     });
     
 
@@ -122,6 +132,9 @@ onValue(orderlistref2, function(){
 
     get(orderlistref2).then(function(snapshot) {
         if (snapshot.exists()) {
+
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            noOrdersMessage.style.display = 'none';
 
             const loadingContainer = document.getElementById('loading-container');
             loadingContainer.style.display = 'none';
@@ -193,6 +206,13 @@ onValue(orderlistref2, function(){
                     }
                 });
             }
+        }
+        else{
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            noOrdersMessage.style.display = 'block';
+            const loadingContainer = document.getElementById('loading-container');
+            loadingContainer.style.display = 'none';
+            return;
         }
     });
     
