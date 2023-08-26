@@ -117,7 +117,7 @@ onValue(orderlistref, function(snapshot){
                     
                     const inProgressOrderRef = ref(database, `cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
                     //console.log(order.orderNumber);
-                    const completedOrderRef = ref(database, `cart/${myObject2.vendorName}/completed/${order.orderNumber}`); // New reference for ready orders
+                    const completedOrderRef = ref(database, `cart/${myObject2.vendorname}/completed/${order.orderNumber}`); // New reference for ready orders
                     
                     console.log(`cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
                     
