@@ -23,15 +23,17 @@ The prevalent issue at Coffee Cove arises from overcrowding during coffee/tea an
 
 2. Kindly click on **customer** to access the customer user-end. Enter your name, IIITB domain email address and password of your choice. To complete your registration, head over to your outlook and verify your email address!
 
-3. For the Zense recruitment team only: <details> <br> The vendors user-end can be accessed using the following credentials:
-<ol>
-<li>Email: cc.aryabhatta.iiitb.ac.in 
-<br>Password: ccaryabhatta
-<br>
-<li>Email: cc.ramanujan.iiitb.ac.in
-<br> Password: ccramanujan
+3. For the Zense recruitment team only:
+<details> 
+   <br> The vendors user-end can be accessed using the following credentials:
+   <ol>
+   <li>Email: cc.aryabhatta.iiitb.ac.in 
+   <br>Password: ccaryabhatta
+   <br>
+   <li>Email: cc.ramanujan.iiitb.ac.in
+   <br> Password: ccramanujan
 
-Note: These credentials are for testing purpose only, it shall be reset soon after the recruitment phase.
+   Note: These credentials are for testing purpose only, it shall be reset soon after the recruitment phase.
 
 </details>
 
