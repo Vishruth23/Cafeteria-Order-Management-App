@@ -1,12 +1,12 @@
 # Implementation and my experience during development (Steps)
 
 1.  **Designing responsive mobile friendly web pages**:
-    <ol>
-        <li>HTML Structure: Created the basic structure of web pages using HTML, including elements for headers, navigation bars, content sections, and footers.
+<ol>
+<li>HTML Structure: Created the basic structure of web pages using HTML, including elements for headers, navigation bars, content sections, and footers.</li>
 
-        <li> CSS Styling: Applied CSS styling to the created HTML elements to control the layout, colors, typography, and overall visual design of the web-pages.
+<li> CSS Styling: Applied CSS styling to the created HTML elements to control the layout, colors, typography, and overall visual design of the web-pages.
 
-        <li> Bootstrap Integration: Integrated Bootstrap framework to utilize its responsive grid system, pre-designed components, and styling classes for a consistent and mobile-friendly UI.
+<li> Bootstrap Integration: Integrated Bootstrap framework to utilize its responsive grid system, pre-designed components, and styling classes for a consistent and mobile-friendly UI.
 
     </ol>
 
