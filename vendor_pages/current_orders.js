@@ -9,28 +9,18 @@ const logoutButton = document.getElementById('logout-btn');
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 alert(errorMessage)
-            // An error happened.
+            
             });
-            // Add logout functionality here
+           
             
         });
 
 
 
-// const objstring = localStorage.getItem('inv-data');
-// const objdata = JSON.parse(objstring);
-// const vendorName = objdata.vendorname;
-// console.log(vendorName);
-
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
         import { getDatabase, set, ref, update, get, remove, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-        // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
-        
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
+       
         const firebaseConfig = {
         apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
         authDomain: "zense-offl.firebaseapp.com",
@@ -111,7 +101,6 @@ onValue(orderlistref, function(snapshot){
             completeBtn.className = 'btn btn-primary';
             completeBtn.id = `complete-btn-${order.orderNumber}`;
             completeBtn.addEventListener('click', function() {
-                // Handle completion logic here
             });
             const buttonsContainer = document.createElement('div');
             buttonsContainer.className = 'buttons-container';
@@ -125,15 +114,14 @@ onValue(orderlistref, function(snapshot){
                 
                 completeBtn.addEventListener('click', async function(){
                 try {
-                    //console.log("button clicked");
-                    // Move the order from "cart/active" to "cart/inprogress" in the database
+                    
                     const inProgressOrderRef = ref(database, `cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
                     //console.log(order.orderNumber);
                     const completedOrderRef = ref(database, `cart/${vendorName}/completed/${order.orderNumber}`); // New reference for ready orders
                     
                     console.log(`cart/${myObject2.vendorname}/inprogress/${order.orderNumber}`);
                     
-                    // Get the order data from "cart/inprogress"
+                
                     const inProgressOrderSnapshot = await get(inProgressOrderRef);
 
                     console.log(inProgressOrderSnapshot.val());
@@ -144,16 +132,9 @@ onValue(orderlistref, function(snapshot){
                         alert("order-ready notified");
                         set(ref(database, `notifs/${order.orderNumber}`), {status:"notified"});
                         const currentDate = new Date();
-                        const transactionDateTime = currentDate.toLocaleString(); // Convert to a human-readable format
-            
-                    // Update the inProgressOrderData with the transaction date and time
+                        const transactionDateTime = currentDate.toLocaleString(); 
                         inProgressOrderData.transactionDateTime = transactionDateTime;
-                        
-                        // // Update the order data with the new order numbe
-                        
-                        // // Update the order in "cart/ready"
-                        // await set(readyOrderRef, inProgressOrderData);
-                        //buttonsContainer =document.querySelector('.buttons-container');
+                     
             
                         const markCompleteBtn = document.createElement('button');
                         markCompleteBtn.textContent = 'Mark Complete';
@@ -185,7 +166,7 @@ onValue(orderlistref, function(snapshot){
             cardBody.appendChild(completeBtn);
             
             orderCard.appendChild(cardBody);
-            // Assuming you have an element with the ID "order-container" in your HTML
+           
             document.getElementById('order-container').appendChild(orderCard);
         }})
     }

@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    /* background-color: #fff; */
+   
     border-radius: 5px;
     /* margin: 20px; */
     padding: 20px;
@@ -28,7 +28,7 @@ h1 {
     color: #333;
 }
 
-/* Inventory Styles */
+
 .add-item {
     margin-bottom: 20px;
 }
@@ -93,7 +93,7 @@ h1 {
     color: #777;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;

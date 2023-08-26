@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getDatabase, set, ref, update, get, child, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
@@ -92,13 +92,13 @@ function fetchCartData(userid, cartStatus) {
 
 
 
-// Now you can use the data in myObject
+
 const customerName = myObject.customername;
 userid = myObject.userid;
 
 console.log('Customer Name:', customerName);
 
-// Replace 'userId' and 'active' with the actual user's ID and cart status
+
 fetchCartData(userid, 'active');
 
 function removeItemFromCart(userid, cartStatus, itemId) {
@@ -108,7 +108,6 @@ function removeItemFromCart(userid, cartStatus, itemId) {
     }).then(() => {
         console.log('Item removed from the cart in the database.');
 
-        // Update localStorage to reflect the latest cart data
     }).catch((error) => {
         console.error('Error removing item from the cart:', error);
     });
@@ -120,17 +119,17 @@ const orderNowLink = document.getElementById('order-now-link');
 
 auth.onAuthStateChanged((user) => {
     if (user) {
-        // User is logged in, show the "Order Now" link
+        // User is logged in
         orderNowLink.style.display = 'block';
     } else {
-        // User is not logged in, hide the "Order Now" link
+        // User is not logged in
         orderNowLink.style.display = 'none';
     }
 });
 
 const logoutButton = document.getElementById('logout-btn');
         logoutButton.addEventListener('click', () => {
-            //const auth = getAuth();
+          
             signOut(auth).then(() => {
                 alert('Logged out');
                 window.location.assign('login_user.html');
@@ -139,9 +138,8 @@ const logoutButton = document.getElementById('logout-btn');
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 alert(errorMessage)
-            // An error happened.
+           
             });
-            // Add logout functionality here
             
         });
 

@@ -15,14 +15,14 @@ body {
 }
 
 .container {
-  /* background-color: #fff; */
+  
   border-radius: 5px;
   /* margin: 20px; */
   padding: 20px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the order container */
+
 .order-container {
     border: 1px solid #ddd;
     margin-bottom: 20px;
@@ -30,14 +30,14 @@ body {
     background-color: #f9f9f9;
   }
   
-  /* Styling for the order card */
+
   .order-card {
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
   }
   
-  /* Styling for item details */
+
   .item-details {
     margin: 10px 0;
     padding: 5px;
@@ -45,7 +45,7 @@ body {
     background-color: #f5f5f5;
   }
   
-  /* Styling for headers */
+
   h3 {
     margin: 0;
     font-size: 16px;

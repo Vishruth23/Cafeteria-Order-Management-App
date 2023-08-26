@@ -37,16 +37,11 @@
     </div> 
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
+       
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
         import { getDatabase, set, ref, update, get, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-        // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
         
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
         const firebaseConfig = {
         apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
         authDomain: "zense-offl.firebaseapp.com",
@@ -76,7 +71,7 @@
                     const user = userCredential.user;
 
 
-                    //user.email.includes("aryabhatta")
+                    
                     
                     get(ref(database, user.email.includes("aryabhatta") ? `vendors/aryabhatta` : `vendors/ramanujan`))
                             .then((snapshot) => {
@@ -92,13 +87,10 @@
                                 window.location.assign('homepage_vendor.html');
                        })
 
-                    //console.log(user.emailVerified);
+                    
                     
                     alert('Login Successful');
-                    //window.location.assign('./../vendor_pages/homepage_vendor.html');
-
                     
-                    // ...
                 })
                 .catch((error) => {
                     const errorCode = error.code;

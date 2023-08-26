@@ -71,7 +71,7 @@ h1 {
 }
 
 
-/* Reset some default styles */
+
 body, h1 {
     margin: 0;
     padding: 0;
@@ -81,7 +81,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Navbar styles */
+
 .navbar {
     margin-bottom: 20px;
 }
@@ -249,7 +249,7 @@ body {
     font-size: 14px;
   }
 
-  /* Add this at the end of your existing CSS */
+  
 
 .cart-icon {
     position: fixed;
@@ -274,12 +274,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px; /* Adjust the height as needed */
+    height: 300px;
 }
 
 .loader {
-    border: 8px solid #f3f3f3; /* Light gray */
-    border-top: 8px solid #3498db; /* Blue */
+    border: 8px solid #f3f3f3; 
+    border-top: 8px solid #3498db;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -300,17 +300,16 @@ body {
 
 
 
-/* Add any custom CSS rules here */
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
-    margin-bottom: 1.5rem; /* Increased spacing between cards */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow */
+    margin-bottom: 1.5rem; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-    padding: 0.5rem 1rem; /* Padding for the header */
-    background-color: #f8f9fa; /* Light gray background color */
+    padding: 0.5rem 1rem; 
+    background-color: #f8f9fa; 
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     font-weight: bold;
 }
@@ -321,18 +320,18 @@ body {
 
 h3 {
     margin: 0;
-    font-size: 1.25rem; /* Increased font size */
+    font-size: 1.25rem; 
 }
 
 ul {
     padding-left: 1rem;
     list-style-type: none;
-    margin: 0; /* Removed default margin for ul */
+    margin: 0; 
 }
 
 li {
-    margin-bottom: 0.25rem; /* Reduced spacing between items */
-    font-size: 1rem; /* Increased font size */
+    margin-bottom: 0.25rem; 
+    font-size: 1rem;
 }
 
 .popup {

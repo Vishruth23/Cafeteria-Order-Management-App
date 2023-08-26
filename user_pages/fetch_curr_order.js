@@ -1,12 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
         import { getDatabase, set, ref, update, get, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-        // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
         
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
         const firebaseConfig = {
         apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
         authDomain: "zense-offl.firebaseapp.com",
@@ -23,14 +18,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebas
         const auth = getAuth();
 
 
-       
-
-
-
-// const objstring = localStorage.getItem('inv-data');
-// const objdata = JSON.parse(objstring);
-// const vendorName = objdata.vendorname;
-// console.log(vendorName);
 
 const storedData = localStorage.getItem('objectGreeting');
 const myObject = JSON.parse(storedData);
@@ -72,14 +59,14 @@ onValue(orderlistref, function(){
     
                         const orderNumber = document.createElement('h3');
                         orderNumber.textContent = `Order Number: ${order.orderNumber}`;
-                        orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        orderNumber.classList.add('fw-bold');
                         cardBody.appendChild(orderNumber);
 
                         const popup = document.getElementById('order-ready-popup');
                         const popupMessage = document.getElementById('popup-message');
                         const popupCloseBtn = document.getElementById('popup-close-btn');
 
-                        const orderno = `${order.orderNumber}`; // Replace with the actual order number
+                        const orderno = `${order.orderNumber}`; 
 
                         // Monitor changes in notifs/orderNumber path
                         const notifsRef = ref(database, `notifs/${orderno}`);
@@ -100,11 +87,11 @@ onValue(orderlistref, function(){
 
     
                         const location = document.createElement('h3');
-                        location.textContent = 'Aryabhatta'; // You can change this to your actual location
-                        location.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        location.textContent = 'Aryabhatta'; 
+                        location.classList.add('fw-bold'); 
                         cardBody.appendChild(location);
     
-                        // Create an unordered list to hold the items
+                       
                         const itemList = document.createElement('ul');
                         for (let itemKey in order) {
                             if (itemKey !== 'orderNumber') {
@@ -117,7 +104,7 @@ onValue(orderlistref, function(){
                         cardBody.appendChild(itemList);
     
                         orderCard.appendChild(cardBody);
-                        // Append the order card to the order container
+                        
                         document.getElementById('order-container').appendChild(orderCard);
                     }
                 });
@@ -159,16 +146,16 @@ onValue(orderlistref2, function(){
     
                         const orderNumber = document.createElement('h3');
                         orderNumber.textContent = `Order Number: ${order.orderNumber}`;
-                        orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        orderNumber.classList.add('fw-bold'); 
                         cardBody.appendChild(orderNumber);
 
                         const popup = document.getElementById('order-ready-popup');
                         const popupMessage = document.getElementById('popup-message');
                         const popupCloseBtn = document.getElementById('popup-close-btn');
 
-                        const orderno = `${order.orderNumber}`; // Replace with the actual order number
+                        const orderno = `${order.orderNumber}`; 
 
-                        // Monitor changes in notifs/orderNumber path
+                        
                         const notifsRef = ref(database, `notifs/${orderno}`);
                         onValue(notifsRef, snapshot => {
                             if (snapshot.exists()) {
@@ -184,11 +171,11 @@ onValue(orderlistref2, function(){
                         });
     
                         const location = document.createElement('h3');
-                        location.textContent = 'Ramanujan'; // You can change this to your actual location
-                        location.classList.add('fw-bold'); // Adding Bootstrap class for bold text
+                        location.textContent = 'Ramanujan'; 
+                        location.classList.add('fw-bold'); 
                         cardBody.appendChild(location);
     
-                        // Create an unordered list to hold the items
+                    
                         const itemList = document.createElement('ul');
                         for (let itemKey in order) {
                             if (itemKey !== 'orderNumber') {

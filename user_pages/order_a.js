@@ -93,7 +93,7 @@ function createInventoryItem(name, category, quantity, price) {
     plusBtn.className = 'quantity-btn';
     plusBtn.id = `qtybtn-${name.replace(/\s+/g, '')}`;
 
-    const removeBtn = document.createElement('button'); // Create the Remove from Cart button
+    const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove from Cart';
     removeBtn.className = 'btn btn-danger remove-btn';
 
@@ -109,7 +109,7 @@ function createInventoryItem(name, category, quantity, price) {
             addtocartbtn.textContent = 'Add to Cart';
             quantityControls.style.display = 'none';
 
-            // Remove the item's UI element from the menu
+           
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -131,7 +131,7 @@ function createInventoryItem(name, category, quantity, price) {
     inventoryItem.appendChild(quantityControls);
     
 
-    menuContainer.appendChild(inventoryItem); // Append to the menu container
+    menuContainer.appendChild(inventoryItem); 
 
 
 
@@ -144,10 +144,10 @@ function createInventoryItem(name, category, quantity, price) {
         total_price = Number(price);
         addtocartbtn.removeEventListener('click', addToCartClicked);
 
-        // Show quantity controls after adding to cart
+      
         quantityControls.style.display = 'flex';
 
-        // Initialize quantity value
+
         let quantityValue = 1;
         quantityDisplay.textContent = quantityValue;
 
@@ -218,13 +218,6 @@ onValue(ref(database, `vendors/aryabhatta/inventory`), function(snapshot){
                     Object.entries(item[i][1])[j][1].quantity, 
                     Object.entries(item[i][1])[j][1].price
                 ));
-
-                // const addToCart = document.getElementById(`atc-${Object.entries(item[i][1])[j][0]}`);
-                // addToCart.addEventListener("click", function addToCartClicked(){
-                //     console.log(`Add to cart clicked - name : ${Object.entries(item[i][1])[j][0]}`);
-                //     addToCart.textContent = 'Added to Cart';
-                //     addToCart.removeEventListener('click', addToCartClicked);
-                // })
             }
         }
     }
@@ -258,7 +251,7 @@ const logoutButton = document.getElementById('logout-btn');
                 alert(errorMessage)
             // An error happened.
             });
-            // Add logout functionality here
+   
             
         });
 
@@ -270,7 +263,7 @@ setTimeout(() => {
         if (snapshot.exists()) {
             
             const cartData = snapshot.val();
-            //console.log("cartdata",cartData)
+
 
             for (const itemId in cartData) {
                 const cartItem = cartData[itemId];

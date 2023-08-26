@@ -6,12 +6,7 @@ const myObject2 = JSON.parse(myObjectString2);
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getDatabase, set, ref, update, get, child, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-// import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
 apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
 authDomain: "zense-offl.firebaseapp.com",
@@ -89,18 +84,12 @@ function createInventoryItem(name, category, quantity, price) {
             const inventoryRef = ref(database, `vendors/${myObject2.vendorname}/inventory/${category}`);
             const itemRef = child(inventoryRef, name);
     
-            // Use the remove function to delete the item from the database
+           
             remove(itemRef);
         }
     });
 
-    // const deleteItemLink = document.createElement('span');
-    // deleteItemLink.className = 'delete-item';
-    // deleteItemLink.textContent = 'Delete';
-    // deleteItemLink.addEventListener('click', () => {
-    //     inventoryList.removeChild(inventoryItem);
-    // });
-
+    
     itemDetails.appendChild(itemNameHeading);
     itemDetails.appendChild(itemCategoryText);
     itemDetails.appendChild(itemQuantityText);
@@ -119,24 +108,6 @@ function createInventoryItem(name, category, quantity, price) {
 
 
 
-
-
-//console.log(myObject2)
-
-// get(ref(database, `vendors/${myObject2.vendorname}/inventory/snacks`))
-//     .then((snapshot) => {
-//         const productdetails = snapshot.val();
-//         for (const p1 in productdetails) {
-//             const productName = p1;           // Get the snack name ("lays")
-//             const productItems = productdetails[p1];
-//             //console.log("name:",p1,"price:",productItems[0], "qty:",productItems[1]);
-//         }
-//         //const userName = userDetails.name;
-//         //console.log(snackdetails);
-// })
-
-
-
 addItemButton.addEventListener('click', () => {
     const itemName = itemNameInput.value;
     const itemCategory = itemCategorySelect.value;
@@ -149,7 +120,7 @@ addItemButton.addEventListener('click', () => {
     }
 
 
-    //push(ref(database, `vendors/${myObject2.vendorname}/inventory/${itemCategory}`).child(`${itemName}`), [itemPrice,itemQuantity]);
+    
     console.log(myObject2.vendorname);
     const inventoryRef = ref(database, `vendors/${myObject2.vendorname}/inventory/${itemCategory}`);
     const itemRef = child(inventoryRef, itemName);
@@ -161,7 +132,7 @@ addItemButton.addEventListener('click', () => {
 
     set(itemRef, newItem).then(alert("Item added successfully"));
 
-    //inventoryList.appendChild(createInventoryItem(itemName, itemCategory, itemQuantity, itemPrice));
+   
 });
 
 
@@ -174,10 +145,10 @@ onValue(ref(database, `vendors/${myObject2.vendorname}/inventory`), function(sna
         for(let i=0; i<item.length; i++){
             //console.log(item[i][0], Object.entries(item[i][1]));
             const categoryHeading = document.createElement('h2');
-            categoryHeading.textContent = item[i][0].charAt(0).toUpperCase() + item[i][0].slice(1)+"s"; // Capitalize the category name
+            categoryHeading.textContent = item[i][0].charAt(0).toUpperCase() + item[i][0].slice(1)+"s"; // 
             inventoryList.appendChild(categoryHeading);
             for(let j=0; j<Object.entries(item[i][1]).length; j++){
-                //console.log(item[i][0], Object.entries(item[i][1])[j]);
+                
                 inventoryList.appendChild(createInventoryItem(Object.entries(item[i][1])[j][0], item[i][0], Object.entries(item[i][1])[j][1].quantity, Object.entries(item[i][1])[j][1].price));
             }
         }

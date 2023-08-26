@@ -48,16 +48,11 @@
 
 
 <script type="module">
-    // Import the functions you need from the SDKs you need
+   
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
     import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-    // import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
     
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
       authDomain: "zense-offl.firebaseapp.com",
@@ -93,13 +88,13 @@
                     })
                     sendEmailVerification(auth.currentUser);
                     alert("Account created, kindly complete email verification before proceeding to log in");
-                    // ...
+               
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     alert(errorMessage);
-                    // ..
+       
                 }
             );
 

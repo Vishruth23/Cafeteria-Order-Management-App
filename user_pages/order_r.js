@@ -19,10 +19,10 @@ const auth = getAuth();
 
 const myObjectString = localStorage.getItem('objectGreeting');
 
-// Parse the JSON string to get the user object
+
 const myObject = JSON.parse(myObjectString);
 
-// Extract the user's name from the object
+
 const userName = myObject.customername;
 const emailId = myObject.customer_email;
 const userid = myObject.userid;
@@ -84,7 +84,7 @@ function createInventoryItem(name, category, quantity, price) {
     plusBtn.className = 'quantity-btn';
     plusBtn.id = `qtybtn-${name.replace(/\s+/g, '')}`;
 
-    const removeBtn = document.createElement('button'); // Create the Remove from Cart button
+    const removeBtn = document.createElement('button'); 
     removeBtn.textContent = 'Remove from Cart';
     removeBtn.className = 'btn btn-danger remove-btn';
 
@@ -95,12 +95,9 @@ function createInventoryItem(name, category, quantity, price) {
             await update(cartRef, {
                 [name]: null
             });
-
-            // Reset the UI to initial state
             addtocartbtn.textContent = 'Add to Cart';
             quantityControls.style.display = 'none';
 
-            // Remove the item's UI element from the menu
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -122,7 +119,7 @@ function createInventoryItem(name, category, quantity, price) {
     inventoryItem.appendChild(quantityControls);
     
 
-    menuContainer.appendChild(inventoryItem); // Append to the menu container
+    menuContainer.appendChild(inventoryItem); 
 
 
 
@@ -134,10 +131,10 @@ function createInventoryItem(name, category, quantity, price) {
         total_price = Number(price);
         addtocartbtn.removeEventListener('click', addToCartClicked);
 
-        // Show quantity controls after adding to cart
+
         quantityControls.style.display = 'flex';
 
-        // Initialize quantity value
+        
         let quantityValue = 1;
         quantityDisplay.textContent = quantityValue;
 
@@ -213,12 +210,6 @@ onValue(ref(database, `vendors/ramanujan/inventory`), function(snapshot){
                     Object.entries(item[i][1])[j][1].price
                 ));
 
-                // const addToCart = document.getElementById(`atc-${Object.entries(item[i][1])[j][0]}`);
-                // addToCart.addEventListener("click", function addToCartClicked(){
-                //     console.log(`Add to cart clicked - name : ${Object.entries(item[i][1])[j][0]}`);
-                //     addToCart.textContent = 'Added to Cart';
-                //     addToCart.removeEventListener('click', addToCartClicked);
-                // })
             }
         }
     }
@@ -250,9 +241,8 @@ const logoutButton = document.getElementById('logout-btn');
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 alert(errorMessage)
-            // An error happened.
             });
-            // Add logout functionality here
+          
             
         });
 

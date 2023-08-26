@@ -1,12 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getDatabase, set, ref, update, get, child, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-// import{_getProvider,_registerComponent as e,registerVersion as t,getApp as r,SDK_VERSION as n}from"https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
 apiKey: "AIzaSyC5m1QkX6ecuWN7svNBaHxLGortp84T0ts",
 authDomain: "zense-offl.firebaseapp.com",
@@ -35,14 +30,14 @@ const logoutButton = document.getElementById('logout-btn');
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 alert(errorMessage)
-            // An error happened.
+       
             });
         });
 
-// Reference to past orders
+
 const pastOrdersRef = ref(database, `cart/${myObject2.vendorname}/completed`);
 
-// Function to display orders
+
 function displayPastOrders(ordernumber, ordersData) {
     const orderList = document.getElementById("order-list");
     
@@ -97,12 +92,7 @@ function displayPastOrders(ordernumber, ordersData) {
         const totalPricetext = document.createElement('h3');
         totalPricetext.textContent = `Total Cost: ${total_price}`;
         orderCard.appendChild(totalPricetext);
-        // 
         
-        
-
-        // Create order details elements (e.g., order number, customer name, items, etc.)
-        // Append these elements to the orderCard
 
         orderContainer.appendChild(orderCard);
         orderList.appendChild(orderContainer);
@@ -110,31 +100,6 @@ function displayPastOrders(ordernumber, ordersData) {
 }
 }
 
-/////////past orders needs to be changed
-
-
-// onValue(pastOrdersRef, (snapshot) => {
-//     if (snapshot.exists()) {
-//         const ordersData = snapshot.val();
-        
-//         // Retrieve existing data from local storage
-//         const existingDataString = localStorage.getItem("pastOrders");
-//         let existingData = JSON.parse(existingDataString);
-        
-//         if (!Array.isArray(existingData)) {
-//             existingData = [];
-//         }
-        
-//         // Check if the new data is already present in the stored data
-//         const newDataKey = Object.keys(ordersData)[0]; // Assuming each order has a unique key
-//         const isDataAlreadyStored = existingData.some(data => Object.keys(data)[0] === newDataKey);
-        
-//         if (!isDataAlreadyStored) {
-//             existingData.push(ordersData);
-//             localStorage.setItem("pastOrders", JSON.stringify(existingData));
-//         }
-//     }
-// });
 
 
 onValue(pastOrdersRef, (snapshot) =>{

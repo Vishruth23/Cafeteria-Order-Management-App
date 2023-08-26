@@ -19,10 +19,10 @@ const auth = getAuth();
 
 const myObjectString = localStorage.getItem('objectGreeting');
 
-// Parse the JSON string to get the user object
+
 const myObject = JSON.parse(myObjectString);
 
-// Extract the user's name from the object
+
 const userName = myObject.customername;
 const emailId = myObject.customer_email;
 const userid = myObject.userid;
@@ -35,10 +35,10 @@ console.log(vendorName);
 const payNowButton = document.getElementById("payment-btn");
 payNowButton.addEventListener('click', async () => {
     try {
-        // Move the order from "cart/active" to "cart/inprogress" in the database
+        // Move order from "cart/active" to "cart/inprogress" 
         const orderCounterRef = ref(database, 'ordernumber');
         const activeOrderRef = ref(database, `cart/${vendorName}/active/${userid}`);
-        //const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${userid}`);
+       
         const invRef = ref(database, `vendors/${vendorName}/inventory`);
 
         get(activeOrderRef).then(async (snapshot) => {
@@ -49,7 +49,6 @@ payNowButton.addEventListener('click', async () => {
                 get(invRef).then(async (inventorySnapshot) => {
                     if (inventorySnapshot.exists()) {
                         const currentInventory = inventorySnapshot.val();
-                        //console.log("current inv", currentInventory);
         
                         // Loop through orders
                         for (const orderKey in Object.entries(ordersData)) {
@@ -65,9 +64,7 @@ payNowButton.addEventListener('click', async () => {
                                 if (categoryName != 'beverage') {
                                     
                                     let orderedQuantity = order[1].quantity;
-                                    //console.log(orderedQuantity);
                                     
-                                    // Subtract ordered quantity from the current inventory
                                     if (currentInventory[categoryName]) {
                                         //console.log("item name", orderedQuantity);
                                         currentInventory[categoryName][itemName].quantity -= orderedQuantity;
@@ -101,9 +98,7 @@ payNowButton.addEventListener('click', async () => {
             // Update the order data with the new order number
             activeOrderData.orderNumber = orderNumber;
             
-            // Update the order in "cart/inprogress"
-            //await set(inProgressOrderRef, activeOrderData);
-            
+
             const inProgressOrderRef = ref(database, `cart/${vendorName}/inprogress/${orderNumber}/${userid}`);
             await set(inProgressOrderRef, activeOrderData);
             
@@ -124,32 +119,9 @@ payNowButton.addEventListener('click', async () => {
 });
 
 
-
-
-
-
-//             // Update the order counter with the new value
-//             await set(orderCounterRef, { value: orderNumber });
-            
-//             // Remove the order from "cart/active"
-//             await remove(activeOrderRef);
-
-
-            
-//             // Redirect to the checkout page
-//            window.location.assign('payment.html');
-//         } else {
-//             console.log('No active order found');
-//         }
-//     } catch (error) {
-//         console.error('An error occurred:', error);
-//     }
-
-// });
-
 const logoutButton = document.getElementById('logout-btn');
         logoutButton.addEventListener('click', () => {
-            //const auth = getAuth();
+
             signOut(auth).then(() => {
                 alert('Logged out');
                 window.location.assign('login_user.html');
@@ -160,7 +132,6 @@ const logoutButton = document.getElementById('logout-btn');
                 alert(errorMessage)
             // An error happened.
             });
-            // Add logout functionality here
             
         });
 

@@ -11,7 +11,7 @@ const logoutButton = document.getElementById('logout-btn');
             alert(errorMessage)
         // An error happened.
         });
-        // Add logout functionality here
+
         
 });
 
@@ -110,11 +110,6 @@ function displayPastOrders(cclocation,ordernumber, ordersData) {
         orderCard.appendChild(totalPricetext);
         
     
-        
-
-        // Create order details elements (e.g., order number, customer name, items, etc.)
-        // Append these elements to the orderCard
-
         orderContainer.appendChild(orderCard);
         orderList.appendChild(orderContainer);
     }
