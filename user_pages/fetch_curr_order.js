@@ -38,6 +38,7 @@ const emailId = myObject.customer_email;
 let userid = myObject.userid;
 
 
+
 const orderlistref = ref(database, `cart/aryabhatta/inprogress`);
 const usersData = ref(database, `users`);
 
@@ -73,6 +74,30 @@ onValue(orderlistref, function(){
                         orderNumber.textContent = `Order Number: ${order.orderNumber}`;
                         orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
                         cardBody.appendChild(orderNumber);
+
+                        const popup = document.getElementById('order-ready-popup');
+                        const popupMessage = document.getElementById('popup-message');
+                        const popupCloseBtn = document.getElementById('popup-close-btn');
+
+                        const orderno = `${order.orderNumber}`; // Replace with the actual order number
+
+                        // Monitor changes in notifs/orderNumber path
+                        const notifsRef = ref(database, `notifs/${orderno}`);
+                        onValue(notifsRef, snapshot => {
+                            if (snapshot.exists()) {
+                                // Show popup with notification message
+                                popupMessage.textContent = `Your order is ready: Order Number ${orderno}`;
+                                popup.style.display = 'block';
+                            }
+                        });
+
+                        // Close the popup when the close button is clicked
+                        popupCloseBtn.addEventListener('click', () => {
+                            popup.style.display = 'none';
+                        });
+
+
+
     
                         const location = document.createElement('h3');
                         location.textContent = 'Aryabhatta'; // You can change this to your actual location
@@ -136,6 +161,27 @@ onValue(orderlistref2, function(){
                         orderNumber.textContent = `Order Number: ${order.orderNumber}`;
                         orderNumber.classList.add('fw-bold'); // Adding Bootstrap class for bold text
                         cardBody.appendChild(orderNumber);
+
+                        const popup = document.getElementById('order-ready-popup');
+                        const popupMessage = document.getElementById('popup-message');
+                        const popupCloseBtn = document.getElementById('popup-close-btn');
+
+                        const orderno = `${order.orderNumber}`; // Replace with the actual order number
+
+                        // Monitor changes in notifs/orderNumber path
+                        const notifsRef = ref(database, `notifs/${orderno}`);
+                        onValue(notifsRef, snapshot => {
+                            if (snapshot.exists()) {
+                                // Show popup with notification message
+                                popupMessage.textContent = `Your order is ready: Order Number ${orderno}`;
+                                popup.style.display = 'block';
+                            }
+                        });
+
+                        // Close the popup when the close button is clicked
+                        popupCloseBtn.addEventListener('click', () => {
+                            popup.style.display = 'none';
+                        });
     
                         const location = document.createElement('h3');
                         location.textContent = 'Ramanujan'; // You can change this to your actual location
@@ -165,4 +211,9 @@ onValue(orderlistref2, function(){
     
 
 })
+
+
+
+
+
 

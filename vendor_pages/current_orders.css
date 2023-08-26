@@ -1,5 +1,9 @@
 body{
-    background-color: rgba(238, 238, 238, 0.383);
+    background-image: url("./../bgimg1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 

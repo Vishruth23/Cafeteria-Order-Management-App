@@ -142,6 +142,7 @@ onValue(orderlistref, function(snapshot){
                         const inProgressOrderData = inProgressOrderSnapshot.val();
             
                         alert("order-ready notified");
+                        set(ref(database, `notifs/${order.orderNumber}`), {status:"notified"});
                         const currentDate = new Date();
                         const transactionDateTime = currentDate.toLocaleString(); // Convert to a human-readable format
             
@@ -164,6 +165,7 @@ onValue(orderlistref, function(snapshot){
                         await set(completedOrderRef, inProgressOrderData);
                         // Remove the order from "cart/inprogress"
                         remove(inProgressOrderRef);
+                        remove(ref(database, `notifs/${order.orderNumber}`))
                         })
                         
                         // Redirect to the checkout page
