@@ -18,7 +18,7 @@ The prevalent issue at Coffee Cove arises from overcrowding during coffee/tea an
 
 ## Using the web app
 
-1. The web app can be accessed by clicking [here]([www.coffeecove-vishruth.netlify.app](https://coffeecove-vishruth.netlify.app/)) or by typing this down in your web browser : www.coffeecove-vishruth.netlify.app
+1. The web app can be accessed by clicking [here](https://coffeecove-vishruth.netlify.app/) or by typing this down in your web browser : https://coffeecove-vishruth.netlify.app
    <br>Preferred browsers: Google Chrome, Firefox
 
 2. Kindly click on **customer** to access the customer user-end. Enter your name, IIITB domain email address and password of your choice. To complete your registration, head over to your outlook and verify your email address!
