@@ -85,7 +85,7 @@ To read complete documentation on the process of implementation, please refer th
 
 <li> Keeping track of code, deployment and hosting: Used Git/GitHub to keep track of daily work since Day 1, used Netlify.app for hosting the application real time.
 
-<li> **Unresolved Issue**: The sign up and login pages of the application requires the user (customer/vendor) to authenticate twice. This is an issue that is yet to be fixed.
+<li> <strong>Unresolved Issue</strong>: The sign up and login pages of the application requires the user (customer/vendor) to authenticate twice. This is an issue that is yet to be fixed.
 
 ## Future Scope (Features to be added)
 
