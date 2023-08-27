@@ -27,11 +27,11 @@ The prevalent issue at Coffee Cove arises from overcrowding during coffee/tea an
 <details> 
    <br> The vendors user-end can be accessed using the following credentials:
    <ol>
-   <li>Email: cc.aryabhatta.iiitb.ac.in 
-   <br>Password: ccaryabhatta
+   <li>Email: `cc.aryabhatta.iiitb.ac.in`
+   <br>Password: `ccaryabhatta`
    <br>
-   <li>Email: cc.ramanujan.iiitb.ac.in
-   <br> Password: ccramanujan
+   <li>Email: `cc.ramanujan.iiitb.ac.in`
+   <br> Password: `ccramanujan`
 
    Note: These credentials are for testing purpose only, it shall be reset soon after the recruitment phase.
 
