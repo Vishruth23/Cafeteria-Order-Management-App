@@ -66,6 +66,9 @@ This application was developed using **HTML**, **CSS**, **Bootstrap**, **Javascr
 To read complete documentation on the process of implementation, please refer the document attached below:
 [**LINK**](implementation_document.md)
 
+To read code documentation, please refer the document atached below:
+[**LINK**](code_documentation.md)
+
 ## Challenges
 
 <li> Implementing real-time updates for orders and menu items, this was overcome by utilizing Firebase Realtime Database's listeners (like <strong>onValue</strong>) to receive real-time updates and reflect changes instantly in the UI.
