@@ -69,6 +69,9 @@ To read complete documentation on the process of implementation, please refer th
 To read code documentation, please refer the document atached below:
 [**LINK**](code_documentation.md)
 
+To view screenshots of the working of the app, please refer to this :
+[**Screenshots**](https://github.com/Vishruth23/zense_app/tree/main/screenshots-app)
+
 ## Challenges
 
 <li> Implementing real-time updates for orders and menu items, this was overcome by utilizing Firebase Realtime Database's listeners (like <strong>onValue</strong>) to receive real-time updates and reflect changes instantly in the UI.
